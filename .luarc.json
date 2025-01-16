@@ -1,0 +1,7 @@
+{
+    "diagnostics.disable": [
+        "redefined-local",
+        "unused-function",
+        "unused-local"
+    ]
+}
