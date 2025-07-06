@@ -11,7 +11,7 @@ return {
     local mapping = ccc.mapping
     ccc.setup({
       highlighter = {
-        auto_enable = true,
+        auto_enable = false,
         lsp = true,
       },
       outputs = {

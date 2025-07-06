@@ -84,6 +84,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.wrap = false
 vim.opt.winborder = "rounded"
+vim.g.autoformat = false
 
 -- vim.cmd("set colorcolumn=80")
 -- vim.opt.mouse = "a"

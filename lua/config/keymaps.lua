@@ -4,4 +4,6 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("t", "jk", "<c-\\><c-n>")
-vim.keymap.set("n", "<Leader>cp", "<cmd>CccPick<CR>")
+vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "Open Files" })
+vim.keymap.set("n", "<Leader>cp", "<cmd>CccPick<CR>", { desc = "Color Picker" })
+vim.keymap.set("n", "<Leader>U", "<cmd>UndotreeToggle<CR>", { desc = "Undo Tree"})
