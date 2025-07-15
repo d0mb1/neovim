@@ -21,12 +21,6 @@ vim.api.nvim_create_autocmd("User", {
     vim.api.nvim_win_set_config(win_id, config)
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "zig" },
-  callback = function()
-    vim.b.autoformat = false
-  end,
-})
 -- config = function(_, opts)
 --   -- setup compat sources
 --   local enabled = opts.sources.default

@@ -15,7 +15,7 @@ return {
         lsp = true,
       },
       outputs = {
-        ccc.output.css_rgb,
+        ccc.output.hex,
       },
       inputs = {
         ccc.input.hsl,

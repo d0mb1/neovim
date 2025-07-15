@@ -84,7 +84,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.wrap = false
 vim.opt.winborder = "rounded"
-vim.g.autoformat = false
+vim.g.autoformat = true
 
 -- vim.cmd("set colorcolumn=80")
 -- vim.opt.mouse = "a"
@@ -93,3 +93,14 @@ vim.g.autoformat = false
 -- vim.opt.relativenumber = true
 -- vim.opt.shiftwidth = 2
 -- vim.opt.tabstop = 2
+
+-- vim.diagnostic.config({
+--   -- Use the default configuration
+--   virtual_lines = true
+--
+--   -- Alternatively, customize specific options
+--   -- virtual_lines = {
+--   --  -- Only show virtual line diagnostics for the current cursor line
+--   --  current_line = true,
+--   -- },
+-- })

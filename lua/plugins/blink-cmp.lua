@@ -9,7 +9,7 @@ return {
     "saghen/blink.cmp",
     opts = {
       keymap = {
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide", "fallback" },
 
         ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
