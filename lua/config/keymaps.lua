@@ -60,10 +60,37 @@ map("v", "p", '"_dP', { desc = "Replace Selection" })
 -- vim.pack keymaps
 map("n", "<leader>Pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
 
-map("n", "<leader>Pd", function()
-  vim.ui.input({ prompt = "Plugin name to delete: " }, function(input)
-    if input and input ~= "" then
-      pcall(vim.pack.del, { input })
+-- map("n", "<leader>Pd", function()
+--   vim.ui.input({ prompt = "Plugin name to delete: " }, function(input)
+--     if input and input ~= "" then
+--       pcall(vim.pack.del, { input })
+--     end
+--   end)
+-- end, { desc = "Delete" })
+
+local function pack_clean()
+  local active_plugins = {}
+  local unused_plugins = {}
+
+  for _, plugin in ipairs(vim.pack.get()) do
+    active_plugins[plugin.spec.name] = plugin.active
+  end
+
+  for _, plugin in ipairs(vim.pack.get()) do
+    if not active_plugins[plugin.spec.name] then
+      table.insert(unused_plugins, plugin.spec.name)
     end
-  end)
-end, { desc = "Delete" })
+  end
+
+  if #unused_plugins == 0 then
+    print("No unused plugins.")
+    return
+  end
+
+  local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
+  if choice == 1 then
+    vim.pack.del(unused_plugins)
+  end
+end
+
+vim.keymap.set("n", "<leader>Pc", pack_clean, { desc = "Clean" })

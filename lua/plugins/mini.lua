@@ -7,8 +7,8 @@ require("mini.comment").setup()
 require("mini.surround").setup()
 require("mini.cursorword").setup()
 require("mini.trailspace").setup()
-require("mini.statusline").setup()
-require("mini.tabline").setup()
+-- require("mini.statusline").setup()
+-- require("mini.tabline").setup()
 require("mini.pairs").setup()
 require("mini.sessions").setup()
 -- require("mini.pick").setup()
@@ -35,6 +35,30 @@ require("mini.cmdline").setup({
     n_context = 5,
   },
 })
+
+-- require("mini.hues").setup({
+--   -- No need to copy this inside `setup()`. Will be used automatically.
+--   -- **Required** base colors as '#rrggbb' hex strings
+--   background = "#351721",
+--   foreground = "#cdc4c6",
+--
+--   -- Number of hues used for non-base colors
+--   n_hues = 4,
+--
+--   -- Saturation. One of 'low', 'lowmedium', 'medium', 'mediumhigh', 'high'.
+--   saturation = "high",
+--
+--   -- Accent color. One of: 'bg', 'fg', 'red', 'orange', 'yellow', 'green',
+--   -- 'cyan', 'azure', 'blue', 'purple'
+--   accent = "bg",
+--
+--   -- Plugin integrations. Use `default = false` to disable all integrations.
+--   -- Also can be set per plugin (see |MiniHues.config|).
+--   plugins = { default = true },
+--
+--   -- Whether to auto adjust highlight groups based on certain events
+--   autoadjust = true,
+-- })
 
 require("mini.basics").setup({
   autocommands = {

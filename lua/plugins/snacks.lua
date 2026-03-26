@@ -217,7 +217,7 @@ local   keymaps = {
   -- LSP
   -- { "<leader>ld", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
   -- { "<leader>lD", function() Snacks.picker.lsp_declarations() end, desc = "Declaration" },
-  -- { "<leader>lr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+  { "glr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
   -- { "<leader>lI", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },
   -- { "<leader>ly", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition" },
   -- { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },

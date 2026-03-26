@@ -3,10 +3,6 @@ vim.pack.add({
   "https://github.com/zbirenbaum/copilot.lua",
 })
 
-require("copilot").setup({
-  -- use recommended settings from above
-})
-
 require("sidekick").setup()
 
 -- { "<c-.>", function() require("sidekick.cli").focus() end, desc = "Sidekick Focus", mode = { "n", "t", "i", "x" }, },
