@@ -16,14 +16,10 @@ opt.signcolumn = "yes" -- Always show sign column (for LSP/git)
 opt.colorcolumn = "80" -- Visual guide at column 80
 opt.winborder = "rounded" -- Rounded borders for floating windows
 
-opt.smoothscroll = true -- Smooth (partial-line) scrolling
-
 opt.showmatch = true -- Highlight matching brackets
 opt.matchtime = 2 -- Duration of match highlight (in tenths of a second)
 
 opt.winminwidth = 5 -- Prevent windows from becoming too narrow
-
-opt.showmode = false -- Hide Insert message when in Insert mode
 
 -- =============================================================================
 -- INDENTATION
@@ -110,3 +106,5 @@ opt.foldlevel = 99 -- Start with all folds open
 opt.pumheight = 10 -- Max items in completion menu
 opt.conceallevel = 2 -- Hide markup (e.g. **bold**) in Markdown
 opt.concealcursor = "" -- Don't conceal text under cursor
+
+opt.laststatus = 3

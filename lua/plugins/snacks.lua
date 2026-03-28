@@ -166,6 +166,8 @@ local   keymaps = {
   -- Top Pickers & Explorer
   { "<leader><space>", function() Snacks.picker.smart() end, desc = "   Smart Find Files" },
   { "<leader>nN", function() Snacks.picker.notifications() end, desc = "Notification History" },
+  { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+  { "<leader>nn",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
   { "<leader>et", function() Snacks.explorer() end, desc = "Tree" },
 
   -- find
@@ -234,6 +236,7 @@ local   keymaps = {
   { "<leader>tt", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)",  mode = "n" },
   { "<c-:>",  function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)", mode = "n" },
   { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
+  { "<c-t>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
   { "<c-_>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "which_key_ignore",  mode = "n" },
 
   -- Other
@@ -241,11 +244,9 @@ local   keymaps = {
   -- { "<leader>Z",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
   -- { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
   -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-  { "<leader>nn",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
   { "<leader>lR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
   { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
   { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-  { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
   { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
   { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
   { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },

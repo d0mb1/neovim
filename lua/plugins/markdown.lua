@@ -3,6 +3,9 @@ vim.pack.add({
   "https://github.com/iamcco/markdown-preview.nvim",
 })
 
+require("render-markdown").setup({
+  file_types = { "markdown", "Avante" },
+})
 local renderOpts = {
   heading = {
     enabled = true,

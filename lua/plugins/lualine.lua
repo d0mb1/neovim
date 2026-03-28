@@ -1,7 +1,7 @@
 vim.pack.add({
   "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
-  "https://github.com/catppuccin/nvim"
+  "https://github.com/catppuccin/nvim",
 })
 
 -- catppucin palette
@@ -62,6 +62,64 @@ require("lualine").setup({
     },
     lualine_x = {
       {
+        "searchcount",
+      },
+      {
+        "selectioncount",
+      },
+      {
+        macro_component,
+        color = {
+          -- fg = cp_palette.base,
+          -- bg = cp_palette.peach,
+          fg = cp_palette.peach,
+          gui = "bold",
+        },
+      },
+    },
+    lualine_y = {
+      {
+        "lsp_status",
+        icon = " ",
+        symbols = {
+          done = "",
+          separator = " | ",
+        },
+      },
+      {
+        "filetype",
+        colored = true, -- Displays filetype icon in color if set to true
+        icon_only = true, -- Display only an icon for filetype
+      },
+      -- {
+      --   "filetype",
+      --   icon_only = true,
+      -- },
+    },
+    lualine_z = { "progress", "location" },
+  },
+  inactive_sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_c = {
+      {
+        "filename",
+        path = 1,
+        symbols = {
+          modified = "",
+        },
+      },
+    },
+    lualine_x = {
+      {
+        "searchcount",
+      },
+      {
+        "selectioncount",
+      },
+    },
+    lualine_y = {
+      {
         macro_component,
         color = {
           -- fg = "#212132",
@@ -88,7 +146,6 @@ require("lualine").setup({
       --   icon_only = true,
       -- },
     },
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
+    lualine_z = { "progress", "location" },
   },
 })

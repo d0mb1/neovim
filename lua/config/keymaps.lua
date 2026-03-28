@@ -33,7 +33,7 @@ map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
 map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
 map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
 map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
-map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+-- map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other" })
@@ -60,10 +60,13 @@ map("v", "p", '"_dP', { desc = "Replace Selection" })
 -- vim.pack keymaps
 map("n", "<leader>Pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
 
+map("n", "<c-d>", "<c-d>zz")
+map("n", "<c-u>", "<c-u>zz")
+
 -- map("n", "<leader>Pd", function()
 --   vim.ui.input({ prompt = "Plugin name to delete: " }, function(input)
 --     if input and input ~= "" then
---       pcall(vim.pack.del, { input })
+--       pcall(vim.pac.k.del, { input })
 --     end
 --   end)
 -- end, { desc = "Delete" })

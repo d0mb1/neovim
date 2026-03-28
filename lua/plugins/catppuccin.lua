@@ -104,7 +104,7 @@ require("catppuccin").setup({
         Boolean = { fg = mocha.text },
         ["@boolean"] = { link = "Boolean" },
 
-        Type = { fg = mocha.text },
+        Type = { fg = mocha.rosewater },
         ["@type"] = { link = "Type" },
         ["@type.builtin"] = { link = "Type" },
         ["@type.definition"] = { link = "Type" },
@@ -141,6 +141,9 @@ require("catppuccin").setup({
         ["@symbol"] = { fg = mocha.text },
         ["@namespace"] = { fg = mocha.text },
         ["@module"] = { fg = mocha.text },
+
+        Comment = { fg = mocha.overlay0 },
+        ["@lsp.type.enumMember"] = { fg = mocha.text },
       }
     end,
   },

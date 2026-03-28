@@ -4,7 +4,6 @@ vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 
 require("mini.ai").setup()
 require("mini.comment").setup()
-require("mini.surround").setup()
 require("mini.cursorword").setup()
 require("mini.trailspace").setup()
 -- require("mini.statusline").setup()
@@ -19,9 +18,22 @@ require("mini.bracketed").setup()
 -- require("mini.diff").setup()
 require("mini.extra").setup()
 -- require("mini.git").setup()
-require("mini.jump").setup()
-require("mini.jump2d").setup()
+-- require("mini.jump").setup()
+-- require("mini.jump2d").setup()
 require("mini.visits").setup()
+require("mini.surround").setup({
+  mappings = {
+    add = "gsa", -- Add surrounding in Normal and Visual modes
+    delete = "gsd", -- Delete surrounding
+    find = "gsf", -- Find surrounding (to the right)
+    find_left = "gsF", -- Find surrounding (to the left)
+    highlight = "gsh", -- Highlight surrounding
+    replace = "gsr", -- Replace surrounding
+
+    suffix_last = "l", -- Suffix to search with "prev" method
+    suffix_next = "n", -- Suffix to search with "next" method
+  },
+})
 
 require("mini.cmdline").setup({
   autocomplete = {
@@ -36,30 +48,6 @@ require("mini.cmdline").setup({
   },
 })
 
--- require("mini.hues").setup({
---   -- No need to copy this inside `setup()`. Will be used automatically.
---   -- **Required** base colors as '#rrggbb' hex strings
---   background = "#351721",
---   foreground = "#cdc4c6",
---
---   -- Number of hues used for non-base colors
---   n_hues = 4,
---
---   -- Saturation. One of 'low', 'lowmedium', 'medium', 'mediumhigh', 'high'.
---   saturation = "high",
---
---   -- Accent color. One of: 'bg', 'fg', 'red', 'orange', 'yellow', 'green',
---   -- 'cyan', 'azure', 'blue', 'purple'
---   accent = "bg",
---
---   -- Plugin integrations. Use `default = false` to disable all integrations.
---   -- Also can be set per plugin (see |MiniHues.config|).
---   plugins = { default = true },
---
---   -- Whether to auto adjust highlight groups based on certain events
---   autoadjust = true,
--- })
-
 require("mini.basics").setup({
   autocommands = {
     basic = true,
@@ -69,17 +57,7 @@ require("mini.basics").setup({
   },
 })
 
--- require("mini.indentscope").setup({
---   symbol = "│",
--- })
-
 require("mini.splitjoin").setup()
-
--- require("mini.notify").setup({
---   lsp_progress = {
---     enable = true,
---   },
--- })
 
 require("mini.files").setup({
   mappings = {
@@ -156,6 +134,7 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>s", desc = "  +Search" },
     { mode = "n", keys = "<Leader><tab>", desc = "󰓩  +Tab" },
     { mode = "n", keys = "gl", desc = "+LSP" },
+    { mode = "n", keys = "gs", desc = "+Surround" },
     miniclue.gen_clues.square_brackets(),
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),
