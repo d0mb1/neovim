@@ -32,16 +32,17 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("filetype", {
   group = augroup("close_with_q"),
   pattern = {
-    "PlenaryTestPopup",
+    "plenarytestpopup",
     "checkhealth",
     "dbout",
     "confirm#",
     "gitsigns-blame",
     "grug-far",
     "help",
+    "nvim-undotree",
     "lspinfo",
     "neotest-output",
     "neotest-output-panel",
@@ -61,7 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
       end, {
         buffer = event.buf,
         silent = true,
-        desc = "Quit buffer",
+        desc = "quit buffer",
       })
     end)
   end,
