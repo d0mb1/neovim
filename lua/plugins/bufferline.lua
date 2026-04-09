@@ -1,6 +1,6 @@
 vim.pack.add({
   "https://github.com/akinsho/bufferline.nvim",
-  "https://github.com/catppuccin/nvim"
+  "https://github.com/catppuccin/nvim",
 })
 
 local mocha = require("catppuccin.palettes").get_palette("mocha")

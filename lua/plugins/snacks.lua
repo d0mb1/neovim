@@ -31,7 +31,15 @@ Snacks.setup({
   scratch = { enabled = false },
   scroll = { enabled = false },
   statuscolumn = { enabled = true },
-  terminal = { enabled = true },
+  terminal = {
+    enabled = true,
+    win = {
+      position = "float",
+      style = "terminal",
+      border = "rounded",
+      title = "Terminal",
+    },
+  },
   toggle = {
     enabled = true,
     which_key = false,
@@ -40,6 +48,18 @@ Snacks.setup({
   zen = { enabled = false },
 
   picker = {
+    actions = {
+      opencode_send = function(...)
+        return require("opencode").snacks_picker_send(...)
+      end,
+    },
+    win = {
+      input = {
+        keys = {
+          ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+        },
+      },
+    },
     enabled = true,
     sources = {
       files = {

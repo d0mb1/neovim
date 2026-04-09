@@ -21,6 +21,10 @@ opt.matchtime = 2 -- Duration of match highlight (in tenths of a second)
 
 opt.winminwidth = 5 -- Prevent windows from becoming too narrow
 
+opt.showmode = true
+
+-- require("vim._core.ui2").enable({})
+
 -- =============================================================================
 -- INDENTATION
 -- =============================================================================
@@ -30,6 +34,7 @@ opt.softtabstop = 2 -- Spaces inserted when pressing <Tab>
 opt.expandtab = true -- Use spaces instead of tabs
 opt.smartindent = true -- Smart auto-indenting for new lines
 opt.autoindent = true -- Copy indent from current line
+opt.smarttab = true -- Makes tab instert 'shiftwidth' number of spaces at the start of a line
 
 -- =============================================================================
 -- SEARCH
@@ -43,6 +48,7 @@ opt.hlsearch = true -- Highlight all matches
 -- COMPLETION
 -- =============================================================================
 opt.completeopt = "menu,menuone,noselect,fuzzy"
+opt.pumborder = "rounded"
 -- menu      → show completion menu
 -- menuone   → show even for single match
 -- noselect  → don't auto-select item

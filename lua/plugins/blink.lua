@@ -3,8 +3,9 @@ vim.pack.add({
   "https://github.com/saghen/blink.cmp",
   "https://github.com/Kaiser-Yang/blink-cmp-avante",
   "https://github.com/saghen/blink.compat",
-  --
 })
+
+-- Completion plugin configuration
 
 require("blink.cmp").setup({
   keymap = {
@@ -22,12 +23,19 @@ require("blink.cmp").setup({
       -- "avante_files",
       -- "avante_commands",
       -- "avante",
+      "lazydev",
       "lsp",
       "path",
       "snippets",
       "buffer",
     },
     providers = {
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        -- make lazydev completions top priority (see `:h blink.cmp`)
+        score_offset = 100,
+      },
       -- copilot = {
       --   name = "copilot",
       --   module = "blink-copilot",
@@ -78,4 +86,4 @@ require("blink.cmp").setup({
   },
 })
 
-require("blink.compat").setup()
+require("blink.compat").setup({})

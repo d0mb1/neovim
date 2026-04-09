@@ -132,6 +132,7 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>g", desc = "  +Git" },
     { mode = "n", keys = "<Leader>n", desc = "  +Notifications" },
     { mode = "n", keys = "<Leader>s", desc = "  +Search" },
+    { mode = "n", keys = "<Leader>a", desc = "󰚩  +AI" },
     { mode = "n", keys = "<Leader><tab>", desc = "󰓩  +Tab" },
     { mode = "n", keys = "gl", desc = "+LSP" },
     { mode = "n", keys = "gs", desc = "+Surround" },

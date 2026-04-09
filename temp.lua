@@ -5,7 +5,9 @@ vim.keymap.set("n", "<leader>u", function()
 end, { desc = "   Undo Tree" })
 
 local NS = vim.api.nvim_create_namespace("undo_hl")
-local HL_GROUP = "IncSearch"
+-- NEW: Define separate highlight groups
+local HL_ADD = "DiffAdd" -- Color for text being added/restored
+local HL_DEL = "DiffDelete" -- Color for text being removed
 local TIMEOUT_MS = 300
 local prev_lines = nil
 
@@ -45,7 +47,10 @@ local function diff_snapshots(old_lines, new_lines)
   end
 
   for _, hunk in ipairs(hunks) do
+    -- hunk format: {start_a, count_a, start_b, count_b}
     local sa, ca, sb, cb = hunk[1], hunk[2], hunk[3], hunk[4]
+
+    -- TEXT ADDED (or restored via undo)
     if cb > 0 then
       local row = sb - 1
       if ca == cb then
@@ -55,22 +60,31 @@ local function diff_snapshots(old_lines, new_lines)
             if cs == ce then
               ce = cs + 1
             end
-            table.insert(ranges, { row + i, cs, row + i, ce })
+            table.insert(ranges, { r = { row + i, cs, row + i, ce }, hl = HL_ADD })
           end
         end
       else
         for i = 0, cb - 1 do
-          table.insert(ranges, { row + i, 0, row + i, -1 })
+          table.insert(ranges, { r = { row + i, 0, row + i, -1 }, hl = HL_ADD })
         end
       end
+    end
+
+    -- TEXT REMOVED (Only visible briefly during real-time undo/redo)
+    if ca > cb and cb == 0 then
+      -- Note: Highlighting deletions in a live buffer is tricky because the text is gone.
+      -- We highlight the line where the deletion occurred.
+      table.insert(ranges, { r = { sb, 0, sb, -1 }, hl = HL_DEL })
     end
   end
   return ranges
 end
 
+-- NEW: Updated to accept the specific highlight group per range
 local function highlight_ranges(buf, ranges)
-  for _, r in ipairs(ranges) do
-    vim.hl.range(buf, NS, HL_GROUP, { r[1], r[2] }, { r[3], r[4] }, { timeout = TIMEOUT_MS })
+  for _, item in ipairs(ranges) do
+    local r = item.r
+    vim.hl.range(buf, NS, item.hl, { r[1], r[2] }, { r[3], r[4] }, { timeout = TIMEOUT_MS })
   end
 end
 
@@ -87,11 +101,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
           if not vim.api.nvim_buf_is_valid(buf) then
             return
           end
+
+          -- Determine if this was an addition or deletion for the "flash"
+          local hl = (er == 0 and ec > 0) and HL_ADD or HL_DEL
           local end_col = sc + ec
           if er == 0 and ec == 0 then
             end_col = sc + 1
           end
-          pcall(vim.hl.range, buf, NS, HL_GROUP, { sr, sc }, { sr + er, end_col }, { timeout = TIMEOUT_MS })
+
+          pcall(vim.hl.range, buf, NS, hl, { sr, sc }, { sr + er, end_col }, { timeout = TIMEOUT_MS })
         end)
       end,
     })

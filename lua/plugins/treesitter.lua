@@ -1,7 +1,7 @@
 vim.pack.add({
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    version = "main",
+    branch = "main",
   },
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 })
