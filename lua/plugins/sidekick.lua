@@ -7,15 +7,19 @@ require("sidekick").setup({
   cli = {
     win = {
       split = {
-        width = 130,
+        width = 100,
       },
+    },
+    mux = {
+      backend = "zellij", -- default to tmux unless zellij is detected
+      enabled = true,
     },
   },
 })
 
 -- Focus the Sidekick CLI panel (popup window)
 vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", function()
-  require("sidekick.cli").focus()
+  require("sidekick.cli").focus({ name = "opencode" })
 end, { desc = "Sidekick Focus" })
 
 -- Smart jump: goto next edit suggestion, or apply it if no jump available
@@ -27,7 +31,7 @@ end, { desc = "Goto/Apply Next Edit Suggestion" })
 
 -- Toggle CLI visibility (show/hide panel)
 vim.keymap.set("n", "<leader>aa", function()
-  require("sidekick.cli").toggle()
+  require("sidekick.cli").toggle({ name = "opencode" })
 end, { desc = "Sidekick Toggle CLI" })
 
 -- Open CLI picker to select/switch between available CLIs
@@ -43,27 +47,27 @@ end, { desc = "Detach a CLI Session" })
 -- Send the word/text under cursor to the active CLI
 -- {this} is a Sidekick placeholder that expands to current text/word
 vim.keymap.set({ "n", "x" }, "<leader>at", function()
-  require("sidekick.cli").send({ msg = "{this}" })
+  require("sidekick.cli").send({ name = "opencode", msg = "{this}" })
 end, { desc = "Send This" })
 
 -- Send the entire current file content to the active CLI
 -- {file} is a Sidekick placeholder that expands to file contents
 vim.keymap.set("n", "<leader>af", function()
-  require("sidekick.cli").send({ msg = "{file}" })
+  require("sidekick.cli").send({ name = "opencode", msg = "{file}" })
 end, { desc = "Send File" })
 
 -- Send the visual selection to the active CLI
 -- {selection} is a Sidekick placeholder that expands to selected text
 vim.keymap.set("x", "<leader>av", function()
-  require("sidekick.cli").send({ msg = "{selection}" })
+  require("sidekick.cli").send({ name = "opencode", msg = "{selection}" })
 end, { desc = "Send Visual Selection" })
 
 -- Open input prompt to send custom message to the active CLI
 vim.keymap.set({ "n", "x" }, "<leader>ap", function()
-  require("sidekick.cli").prompt()
+  require("sidekick.cli").prompt({ name = "opencode" })
 end, { desc = "Sidekick Select Prompt" })
 
--- Toggle Claude CLI specifically and focus its panel
+-- Toggle Opencode CLI specifically and focus its panel
 vim.keymap.set("n", "<leader>ac", function()
-  require("sidekick.cli").toggle({ name = "claude", focus = true })
-end, { desc = "Sidekick Toggle Claude" })
+  require("sidekick.cli").toggle({ name = "opencode", focus = true })
+end, { desc = "Sidekick Toggle Opencode" })

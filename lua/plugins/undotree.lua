@@ -1,7 +1,7 @@
 vim.cmd("packadd nvim.undotree")
 
 vim.keymap.set("n", "<leader>u", function()
-  require("undotree").open({ command = "40vnew" })
+  require("undotree").open({ command = "60vnew" })
 end, { desc = "   Undo Tree" })
 
 local NS = vim.api.nvim_create_namespace("undo_hl")
