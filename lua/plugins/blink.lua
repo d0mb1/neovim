@@ -23,6 +23,7 @@ require("blink.cmp").setup({
       -- "avante_files",
       -- "avante_commands",
       -- "avante",
+      "copilot",
       "lazydev",
       "lsp",
       "path",
@@ -36,12 +37,12 @@ require("blink.cmp").setup({
         -- make lazydev completions top priority (see `:h blink.cmp`)
         score_offset = 100,
       },
-      -- copilot = {
-      --   name = "copilot",
-      --   module = "blink-copilot",
-      --   score_offset = 100,
-      --   async = true,
-      -- },
+      copilot = {
+        name = "copilot",
+        module = "blink-copilot",
+        score_offset = 100,
+        async = true,
+      },
       -- avante = {
       --   module = "blink-cmp-avante",
       --   name = "Avante",

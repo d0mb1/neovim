@@ -3,7 +3,15 @@ vim.pack.add({
   -- "https://github.com/zbirenbaum/copilot.lua",
 })
 
-require("sidekick").setup({})
+require("sidekick").setup({
+  cli = {
+    win = {
+      split = {
+        width = 130,
+      },
+    },
+  },
+})
 
 -- Focus the Sidekick CLI panel (popup window)
 vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", function()
