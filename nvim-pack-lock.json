@@ -36,6 +36,10 @@
       "rev": "7eeb33314977b232b37f9bb8028e08f5be4a6b0b",
       "src": "file:///home/dombi/Documents/Lua/crisp.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "flash.nvim": {
       "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
       "src": "https://github.com/folke/flash.nvim"
@@ -47,6 +51,14 @@
     "gitsigns.nvim": {
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "jj.nvim": {
+      "rev": "2dbe2c73c599a29e86e4123b42e430828b1f01d9",
+      "src": "https://github.com/NicolasGB/jj.nvim"
+    },
+    "jujutsu.nvim": {
+      "rev": "3a0571eb1102a58f97f748ad3ff8a763027748b5",
+      "src": "https://github.com/yannvanhalewyn/jujutsu.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
