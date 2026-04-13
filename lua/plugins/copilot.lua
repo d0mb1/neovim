@@ -4,7 +4,7 @@ vim.pack.add({
 })
 
 require("copilot").setup({
-  suggestion = { enabled = false },
+  suggestion = { enabled = true },
   panel = { enabled = false },
   filetypes = {
     markdown = true,

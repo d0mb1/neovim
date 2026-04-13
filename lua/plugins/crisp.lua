@@ -3,7 +3,7 @@ vim.pack.add({ "file:///home/dombi/Documents/Lua/crisp.nvim" })
 
 require("crisp")
 
-vim.keymap.set("n", "<leader>ec", ":CrispFiles<CR>")
+vim.keymap.set("n", "<leader>ec", ":CrispFiles<CR>", { desc = "Crisp Open Files" })
 
 -- vim.keymap>.set("n", "<leader>ec", require("crisp").open, { desc = "Open file manager" })
 

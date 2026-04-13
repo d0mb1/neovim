@@ -225,8 +225,13 @@ require("mini.starter").setup({
 })
 
 -- Files
-vim.keymap.set("n", "<space>ed", ":lua MiniFiles.open()<cr>", { desc = "Directory" })
-vim.keymap.set("n", "<space>ef", ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", { desc = "File Directory" })
+vim.keymap.set("n", "<space>ed", ":lua MiniFiles.open()<cr>", { desc = "Mini Directory" })
+vim.keymap.set(
+  "n",
+  "<space>ef",
+  ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>",
+  { desc = "Mini File Directory" }
+)
 
 -- Splitjoin
 vim.keymap.set("n", "<space>ta", ":lua MiniSplitjoin.toggle()<cr>", { desc = "Toggle Arguments" })

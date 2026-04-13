@@ -77,6 +77,7 @@ Snacks.setup({
         },
         exclude = {
           "**/.git/*",
+          "**/.jj/*",
           "**/node_modules/*",
           "**/.yarn/cache/*",
           "**/.yarn/install*",
@@ -188,7 +189,7 @@ local   keymaps = {
   { "<leader>nN", function() Snacks.picker.notifications() end, desc = "Notification History" },
   { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
   { "<leader>nn",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
-  { "<leader>et", function() Snacks.explorer() end, desc = "Tree" },
+  { "<leader>et", function() Snacks.explorer() end, desc = "Snacks Tree" },
 
   -- find
   -- { "<leader>sB", function() Snacks.picker.buffers() end, desc = "Buffers" },

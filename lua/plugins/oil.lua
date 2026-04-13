@@ -94,9 +94,9 @@ require("oil").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>eo", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<leader>eo", "<CMD>Oil --float<CR>", { desc = "Oil Open Parent Directory" })
 
-require("oil-git-status").setup()
+require("oil-git-status").setup({})
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "OilEnter",
