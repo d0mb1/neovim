@@ -38,6 +38,44 @@ vim.lsp.config("vtsls", {
   capabilities = capabilities,
 })
 
+-- AI MADE THIS
+local function start_lsp(buf)
+  local ft = vim.bo[buf].filetype
+  local servers = {
+    lua = "lua_ls",
+    zig = "zls",
+    typescript = "vtsls",
+    javascript = "vtsls",
+    typescriptreact = "vtsls",
+    javascriptreact = "vtsls",
+    markdown = "markdown-oxide",
+  }
+  local server = servers[ft]
+  if not server then
+    return
+  end
+  local ok, server_obj = pcall(require("mason-lspconfig").get_server, server)
+  if ok then
+    local clients = vim.lsp.get_clients({ bufnr = buf })
+    for _, c in ipairs(clients) do
+      if c.name == server then
+        return
+      end
+    end
+    vim.lsp.start({
+      name = server,
+      cmd = server_obj.cmd,
+    }, { buffer = buf })
+  end
+end
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    start_lsp(args.buf)
+  end,
+})
+-- AI MADE THIS
+
 vim.keymap.set("n", "glR", vim.lsp.buf.references, { desc = "References" })
 vim.keymap.set("n", "gln", vim.lsp.buf.rename, { desc = "Rename" })
 vim.keymap.set("n", "glt", vim.lsp.buf.type_definition, { desc = "Type Definition" })
