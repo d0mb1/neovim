@@ -76,13 +76,13 @@ msgs.set_pos = function(tgt)
   end
 end
 
-vim.keymap.set("n", "<leader>um", "g<", {
+vim.keymap.set("n", "<leader>nu", "g<", {
   remap = true,
   desc = "Show spilled ui2 messages",
 })
 
 -- Open :messages quickly.
-vim.keymap.set("n", "<leader>uM", "<cmd>messages<cr>", {
+vim.keymap.set("n", "<leader>nU", "<cmd>messages<cr>", {
   silent = true,
   desc = "Open message history",
 })
