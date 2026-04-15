@@ -1,5 +1,3 @@
-vim.pack.add({ "https://github.com/catppuccin/nvim" })
-
 require("catppuccin").setup({
   flavour = "mocha", -- latte, frappe, macchiato, mocha
   background = { -- :h background
@@ -37,11 +35,11 @@ require("catppuccin").setup({
   },
   lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
     virtual_text = {
-      errors = { "italic" },
-      hints = { "italic" },
-      warnings = { "italic" },
-      information = { "italic" },
-      ok = { "italic" },
+      errors = {},
+      hints = {},
+      warnings = {},
+      information = {},
+      ok = {},
     },
     underlines = {
       errors = { "underline" },
@@ -160,14 +158,13 @@ require("catppuccin").setup({
     mason = true,
     snacks = {
       enabled = true,
-      indent_scope_color = "", -- catppuccin color (eg. `lavender`) Default: overlay2
+      indent_scope_color = "pink", -- catppuccin color (eg. `lavender`) Default: overlay2
     },
     mini = {
       enabled = true,
       indentscope_color = "",
     },
     lualine = true,
-    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
   },
 })
 

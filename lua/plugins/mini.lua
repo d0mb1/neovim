@@ -1,7 +1,3 @@
-vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
-
--- vim.cmd.colorscheme("miniwinter")
-
 require("mini.ai").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
@@ -18,7 +14,6 @@ require("mini.bracketed").setup()
 -- require("mini.diff").setup()
 require("mini.extra").setup()
 -- require("mini.git").setup()
--- require("mini.jump").setup()
 -- require("mini.jump2d").setup()
 require("mini.visits").setup()
 require("mini.surround").setup({
@@ -34,6 +29,32 @@ require("mini.surround").setup({
     suffix_next = "n", -- Suffix to search with "next" method
   },
 })
+
+-- require("mini.jump").setup({
+--   -- Module mappings. Use `''` (empty string) to disable one.
+--   mappings = {
+--     forward = "f",
+--     backward = "F",
+--     forward_till = "t",
+--     backward_till = "T",
+--     repeat_jump = ";",
+--   },
+--
+--   -- Delay values (in ms) for different functionalities. Set any of them to
+--   -- a very big number (like 10^7) to virtually disable.
+--   delay = {
+--     -- Delay between jump and highlighting all possible jumps
+--     highlight = 250,
+--
+--     -- Delay between jump and automatic stop if idle (no jump is done)
+--     idle_stop = 10000000,
+--   },
+--
+--   -- Whether to disable showing non-error feedback
+--   -- This also affects (purely informational) helper messages shown after
+--   -- idle time if user input is required.
+--   silent = false,
+-- })
 
 require("mini.cmdline").setup({
   autocomplete = {

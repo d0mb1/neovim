@@ -1,10 +1,5 @@
-vim.pack.add({
-  "https://github.com/MeanderingProgrammer/render-markdown.nvim",
-  "https://github.com/iamcco/markdown-preview.nvim",
-})
-
 require("render-markdown").setup({
-  file_types = { "markdown", "Avante" },
+  file_types = { "markdown", "Avante", "sidekick_terminal" },
 })
 local renderOpts = {
   heading = {

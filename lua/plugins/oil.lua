@@ -1,9 +1,3 @@
-vim.pack.add({
-  "https://github.com/stevearc/oil.nvim",
-  "https://github.com/JezerM/oil-lsp-diagnostics.nvim",
-  "https://github.com/refractalize/oil-git-status.nvim",
-})
-
 require("oil").setup({
   columns = {
     "icon",
@@ -44,12 +38,12 @@ require("oil").setup({
     -- Show files and directories that start with "."
     show_hidden = true,
     -- This function defines what is considered a "hidden" file
-    is_hidden_file = function(name, bufnr)
+    is_hidden_file = function(name)
       local m = name:match("^%.")
       return m ~= nil
     end,
     -- Customize the highlight group for the file name
-    highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
+    highlight_filename = function()
       return nil
     end,
   },
@@ -86,7 +80,7 @@ require("oil").setup({
     -- How to open the preview window "load"|"scratch"|"fast_scratch"
     preview_method = "fast_scratch",
     -- A function that returns true to disable preview on a file e.g. to avoid lag
-    disable_preview = function(filename)
+    disable_preview = function()
       return false
     end,
     -- Window-local options to use for preview window buffers
@@ -96,8 +90,6 @@ require("oil").setup({
 
 vim.keymap.set("n", "<leader>eo", "<CMD>Oil --float<CR>", { desc = "Oil Open Parent Directory" })
 
-require("oil-git-status").setup({})
-
 vim.api.nvim_create_autocmd("User", {
   pattern = "OilEnter",
   callback = vim.schedule_wrap(function(args)
@@ -106,34 +98,4 @@ vim.api.nvim_create_autocmd("User", {
       oil.open_preview()
     end
   end),
-})
-
-require("oil-lsp-diagnostics").setup({
-  show_ignored = true, -- show files that match gitignore with !!
-  symbols = { -- customize the symbols that appear in the git status columns
-    index = {
-      ["!"] = "!",
-      ["?"] = "?",
-      ["A"] = "A",
-      ["C"] = "C",
-      ["D"] = "D",
-      ["M"] = "M",
-      ["R"] = "R",
-      ["T"] = "T",
-      ["U"] = "U",
-      [" "] = " ",
-    },
-    working_tree = {
-      ["!"] = "!",
-      ["?"] = "?",
-      ["A"] = "A",
-      ["C"] = "C",
-      ["D"] = "D",
-      ["M"] = "M",
-      ["R"] = "R",
-      ["T"] = "T",
-      ["U"] = "U",
-      [" "] = " ",
-    },
-  },
 })

@@ -1,8 +1,3 @@
-vim.pack.add({
-  "https://github.com/folke/sidekick.nvim",
-  -- "https://github.com/zbirenbaum/copilot.lua",
-})
-
 require("sidekick").setup({
   cli = {
     win = {

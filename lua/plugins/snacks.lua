@@ -1,8 +1,3 @@
-vim.pack.add({
-  "https://github.com/folke/snacks.nvim",
-  -- "https://github.com/nvim-tree/nvim-web-devicons",
-})
-
 local Snacks = require("snacks")
 
 Snacks.setup({
@@ -22,8 +17,8 @@ Snacks.setup({
   keymap = { enabled = false },
   layout = { enabled = false },
   lazygit = { enabled = false },
-  notifier = { enabled = true },
-  notify = { enabled = true },
+  notifier = { enabled = false },
+  notify = { enabled = false },
   profiler = { enabled = false },
   quickfile = { enabled = true },
   rename = { enabled = true }, -- NOTE: test

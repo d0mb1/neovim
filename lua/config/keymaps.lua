@@ -23,8 +23,8 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 -- -- highlights under cursor
--- map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
--- map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
+map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- Terminal Mappings
 -- map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -57,20 +57,11 @@ map("v", "p", '"_dP', { desc = "Replace Selection" })
 -- Toggle wrap
 -- map("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Toggle Wrap" })
 
--- vim.pack keymaps
-map("n", "<leader>Pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
-
 map("n", "<c-d>", "<c-d>zz")
 map("n", "<c-u>", "<c-u>zz")
 
--- map("n", "<leader>Pd", function()
---   vim.ui.input({ prompt = "Plugin name to delete: " }, function(input)
---     if input and input ~= "" then
---       pcall(vim.pac.k.del, { input })
---     end
---   end)
--- end, { desc = "Delete" })
-
+-- vim.pack keymaps
+map("n", "<leader>Pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
 local function pack_clean()
   local active_plugins = {}
   local unused_plugins = {}
@@ -95,7 +86,6 @@ local function pack_clean()
     vim.pack.del(unused_plugins)
   end
 end
-
 vim.keymap.set("n", "<leader>Pc", pack_clean, { desc = "Clean" })
 
 vim.keymap.set("n", "<leader>R", function()
@@ -103,3 +93,18 @@ vim.keymap.set("n", "<leader>R", function()
   vim.cmd("mksession! " .. vim.fn.fnameescape(session))
   vim.cmd("restart source " .. vim.fn.fnameescape(session))
 end, { desc = "󰜉   Restart Neovim" })
+
+vim.keymap.set("n", "<leader>xx", function()
+  vim.cmd("write")
+  vim.cmd("silent !git add .")
+  vim.cmd("silent !git commit -m '.'")
+
+  if pcall(require, "vim.pack") then
+    vim.api.nvim_command('lua vim.pack.update({"brochure.nvim"})')
+  else
+    vim.cmd('lua vim.pack.update({"brochure.nvim"})')
+  end
+
+  vim.cmd("write")
+  vim.cmd("restart")
+end, { desc = "Update dev plugin" })

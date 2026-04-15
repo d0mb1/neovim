@@ -1,9 +1,3 @@
-vim.pack.add({
-  "https://github.com/nvim-lualine/lualine.nvim",
-  "https://github.com/nvim-tree/nvim-web-devicons",
-  "https://github.com/catppuccin/nvim",
-})
-
 -- catppucin palette
 local cp_palette = require("catppuccin.palettes").get_palette("mocha")
 
@@ -28,7 +22,7 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   callback = function()
     -- Use a tiny timer because the register isn't cleared
     -- the exact millisecond the event fires
-    local timer = vim.loop.new_timer()
+    local timer = vim.timer.new()
     timer:start(
       50,
       0,

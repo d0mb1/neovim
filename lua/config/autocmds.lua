@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("filetype", {
+vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "plenarytestpopup",
@@ -111,7 +111,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- Set filetype for .toml files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup("toml_filetype"),
-  pattern = { "*.tomg-config*" },
+  pattern = { "*.toml*" },
   callback = function()
     vim.opt_local.filetype = "toml"
   end,
@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(event)
-    local exclude = { "gitcommit" } -- don't remember position in commit messages
+    -- local exclude = { "gitcommit" } -- don't remember position in commit messages
     local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
     local lcount = vim.api.nvim_buf_line_count(event.buf)
     if mark[1] > 0 and mark[1] <= lcount then

@@ -1,0 +1,3 @@
+- fix the diagnostic on in lualine.lua on line 26
+- fix the diagnostic in catppuccin.lua on line 167
+- finish the comments in plugins/init.lua

@@ -1,11 +1,3 @@
-vim.pack.add({
-  "https://github.com/neovim/nvim-lspconfig",
-  "https://github.com/williamboman/mason.nvim",
-  "https://github.com/williamboman/mason-lspconfig.nvim",
-  "https://github.com/zbirenbaum/copilot.lua",
-  "https://github.com/saghen/blink.cmp",
-})
-
 require("mason").setup()
 
 require("mason-lspconfig").setup({
@@ -69,6 +61,7 @@ local function start_lsp(buf)
   end
 end
 
+-- AI MADE THIS
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(args)
     start_lsp(args.buf)
@@ -76,21 +69,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 -- AI MADE THIS
 
-vim.keymap.set("n", "glR", vim.lsp.buf.references, { desc = "References" })
-vim.keymap.set("n", "gln", vim.lsp.buf.rename, { desc = "Rename" })
-vim.keymap.set("n", "glt", vim.lsp.buf.type_definition, { desc = "Type Definition" })
-vim.keymap.set("n", "gli", vim.lsp.buf.implementation, { desc = "Implementation" })
-vim.keymap.set("n", "gla", vim.lsp.buf.code_action, { desc = "Code Actions" })
 vim.keymap.set("n", "gld", vim.diagnostic.open_float, { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>th", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Inlay Hints" })
--- vim.api.nvim_create_autocmd("LspAttach", {
---   desc = "LSP actions",
---   <LeftMouse>allback = function(event)
---     local function opts(desc)
---       return { buffer = event.buf, remap = false, desc = desc }
---     end
---     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Go to declaration"))
---   end,
--- })
