@@ -93,18 +93,3 @@ vim.keymap.set("n", "<leader>R", function()
   vim.cmd("mksession! " .. vim.fn.fnameescape(session))
   vim.cmd("restart source " .. vim.fn.fnameescape(session))
 end, { desc = "󰜉   Restart Neovim" })
-
-vim.keymap.set("n", "<leader>xx", function()
-  vim.cmd("write")
-  vim.cmd("silent !git add .")
-  vim.cmd("silent !git commit -m '.'")
-
-  if pcall(require, "vim.pack") then
-    vim.api.nvim_command('lua vim.pack.update({"brochure.nvim"})')
-  else
-    vim.cmd('lua vim.pack.update({"brochure.nvim"})')
-  end
-
-  vim.cmd("write")
-  vim.cmd("restart")
-end, { desc = "Update dev plugin" })

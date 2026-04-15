@@ -84,17 +84,13 @@ require("plugins.markdown")
 
 ----------------------------------------------------------------------- GITSIGNS
 -- Gitsigns.nvim: Git integration for Neovim
-vim.pack.add({
-  "https://github.com/lewis6991/gitsigns.nvim",
-})
+vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 require("plugins.gitsigns")
 
 ------------------------------------------------------------------------- SNACKS
 -- Snacks.nvim: Utility plugin for Neovim
 -- Provides winbar, statuscolumn, and other UI enhancements
-vim.pack.add({
-  "https://github.com/folke/snacks.nvim",
-})
+vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 require("plugins.snacks")
 
 -------------------------------------------------------------------------- FLASH
@@ -104,16 +100,12 @@ require("plugins.flash")
 
 --------------------------------------------------------------------- BUFFERLINE
 -- Bufferline.nvim: Buffer tabline plugin for Neovim
-vim.pack.add({
-  "https://github.com/akinsho/bufferline.nvim",
-})
+vim.pack.add({ "https://github.com/akinsho/bufferline.nvim" })
 require("plugins.bufferline")
 
 ---------------------------------------------------------------------------- OIL
 -- Oil.nvim: File explorer as buffer for Neovim
-vim.pack.add({
-  "https://github.com/stevearc/oil.nvim",
-})
+vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 require("plugins.oil")
 
 ------------------------------------------------------------------------ LAZYDEV
@@ -121,24 +113,15 @@ require("plugins.oil")
 vim.pack.add({ "https://github.com/folke/lazydev.nvim" })
 require("plugins.lazydev")
 
--------------------------------------------------------------------------- CRISP
--- Crisp.nvim: Cursor line highlighting plugin
-vim.pack.add({ "file:///home/dombi/Documents/Lua/crisp.nvim" })
-require("plugins.crisp")
-
------------------------------------------------------------------------ BROCHURE
--- Brochure.nvim: Bufferline-like plugin
-vim.pack.add({ "file:///home/dombi/Documents/Lua/brochure.nvim" })
-require("plugins.brochure")
-
 ----------------------------------------------------------------------- SIDEKICK
 -- Sidekick.nvim: Sidebar plugin for Neovim
-vim.pack.add({
-  "https://github.com/folke/sidekick.nvim",
-  -- "https://github.com/zbirenbaum/copilot.lua",
-})
+vim.pack.add({ "https://github.com/folke/sidekick.nvim" })
 require("plugins.sidekick")
 
 ----------------------------------------------------------------------- UNDOTREE
 vim.pack.add({ "https://github.com/jiaoshijie/undotree" })
 require("plugins.undotree")
+
+--------------------------------------------------------------- TINY DIAGNOSTICS
+vim.pack.add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
+require("plugins.tiny-diagnostics")

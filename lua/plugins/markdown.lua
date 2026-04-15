@@ -1,6 +1,7 @@
 require("render-markdown").setup({
   file_types = { "markdown", "Avante", "sidekick_terminal" },
 })
+
 local renderOpts = {
   heading = {
     enabled = true,

@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   callback = function()
     -- Use a tiny timer because the register isn't cleared
     -- the exact millisecond the event fires
-    local timer = vim.timer.new()
+    local timer = vim.loop.new_timer()
     timer:start(
       50,
       0,

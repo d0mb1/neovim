@@ -12,16 +12,16 @@ Snacks.setup({
   git = { enabled = true },
   gitbrowse = { enabled = false },
   image = { enabled = true },
-  indent = { enabled = true }, -- NOTE: test
-  input = { enabled = true }, -- NOTE: test
+  indent = { enabled = true },
+  input = { enabled = true },
   keymap = { enabled = false },
   layout = { enabled = false },
   lazygit = { enabled = false },
-  notifier = { enabled = false },
-  notify = { enabled = false },
+  notifier = { enabled = true },
+  notify = { enabled = true },
   profiler = { enabled = false },
   quickfile = { enabled = true },
-  rename = { enabled = true }, -- NOTE: test
+  rename = { enabled = true },
   scope = { enabled = false },
   scratch = { enabled = false },
   scroll = { enabled = false },
