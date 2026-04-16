@@ -4,3 +4,6 @@ vim.keymap.set("i", "jk", "<esc>")
 
 require("config")
 require("plugins")
+-- require("test")
+
+-- test

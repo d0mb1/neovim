@@ -89,7 +89,10 @@ end
 vim.keymap.set("n", "<leader>Pc", pack_clean, { desc = "Clean" })
 
 vim.keymap.set("n", "<leader>R", function()
-  local session = vim.fn.stdpath("state") .. "/restart_session.vim"
-  vim.cmd("mksession! " .. vim.fn.fnameescape(session))
-  vim.cmd("restart source " .. vim.fn.fnameescape(session))
+  vim.cmd("restart")
 end, { desc = "󰜉   Restart Neovim" })
+-- vim.keymap.set("n", "<leader>R", function()
+--   local session = vim.fn.stdpath("state") .. "/restart_session.vim"
+--   vim.cmd("mksession! " .. vim.fn.fnameescape(session))
+--   vim.cmd("restart source " .. vim.fn.fnameescape(session))
+-- end, { desc = "󰜉   Restart Neovim" })

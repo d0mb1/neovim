@@ -18,12 +18,12 @@ require("mini.extra").setup()
 require("mini.visits").setup()
 require("mini.surround").setup({
   mappings = {
-    add = "gsa", -- Add surrounding in Normal and Visual modes
-    delete = "gsd", -- Delete surrounding
-    find = "gsf", -- Find surrounding (to the right)
+    add = "gsa",       -- Add surrounding in Normal and Visual modes
+    delete = "gsd",    -- Delete surrounding
+    find = "gsf",      -- Find surrounding (to the right)
     find_left = "gsF", -- Find surrounding (to the left)
     highlight = "gsh", -- Highlight surrounding
-    replace = "gsr", -- Replace surrounding
+    replace = "gsr",   -- Replace surrounding
 
     suffix_last = "l", -- Suffix to search with "prev" method
     suffix_next = "n", -- Suffix to search with "next" method
@@ -86,7 +86,7 @@ require("mini.files").setup({
   },
   windows = {
     -- Maximum number of windows to show side by side
-    max_number = math.huge,
+    max_number = 1,
     -- Whether to show preview of file/directory under cursor
     preview = true,
     -- Width of focused window
@@ -123,10 +123,10 @@ miniclue.setup({
     -- Leader triggers
     { mode = { "n", "x" }, keys = "<Leader>" },
     -- `[` and `]` keys
-    { mode = "n", keys = "[" },
-    { mode = "n", keys = "]" },
+    { mode = "n",          keys = "[" },
+    { mode = "n",          keys = "]" },
     -- Built-in completion
-    { mode = "i", keys = "<C-x>" },
+    { mode = "i",          keys = "<C-x>" },
     -- `g` key
     { mode = { "n", "x" }, keys = "g" },
     -- Marks
@@ -136,7 +136,7 @@ miniclue.setup({
     { mode = { "n", "x" }, keys = '"' },
     { mode = { "i", "c" }, keys = "<C-r>" },
     -- Window commands
-    { mode = "n", keys = "<C-w>" },
+    { mode = "n",          keys = "<C-w>" },
     -- `z` key
     { mode = { "n", "x" }, keys = "z" },
   },
