@@ -125,3 +125,5 @@ require("plugins.undotree")
 --------------------------------------------------------------- TINY DIAGNOSTICS
 vim.pack.add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
 require("plugins.tiny-diagnostics")
+
+-- vim.pack.add({ "file:///home/d0mb1/dev/neovim/test_plugin" })
