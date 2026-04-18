@@ -91,3 +91,8 @@ vim.keymap.set("n", "<leader>Pc", pack_clean, { desc = "Clean" })
 vim.keymap.set("n", "<leader>R", function()
   vim.cmd("restart")
 end, { desc = "󰜉   Restart Neovim" })
+
+-- toggle inlay hints
+vim.keymap.set("n", "<leader>th", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Inlay Hints" })

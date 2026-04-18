@@ -70,6 +70,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- AI MADE THIS
 
 vim.keymap.set("n", "gld", vim.diagnostic.open_float, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>th", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { desc = "Inlay Hints" })

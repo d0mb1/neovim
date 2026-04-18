@@ -233,13 +233,13 @@ local keymaps = {
   { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
 
   -- LSP
-  -- { "<leader>ld", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
-  -- { "<leader>lD", function() Snacks.picker.lsp_declarations() end, desc = "Declaration" },
-  { "glr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
-  -- { "<leader>lI", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },
-  -- { "<leader>ly", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition" },
-  -- { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-  -- { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+  { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
+  { "grd", function() Snacks.picker.lsp_declarations() end, desc = "Declaration" },
+  { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+  { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },
+  { "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition" },
+  { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+  { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
   -- { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming", has = "callHierarchy/incomingCalls" },
   -- { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing", has = "callHierarchy/outgoingCalls" },
 
