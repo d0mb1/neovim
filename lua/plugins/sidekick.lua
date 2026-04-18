@@ -5,10 +5,10 @@ require("sidekick").setup({
         width = 100,
       },
     },
-    mux = {
-      backend = "zellij", -- default to tmux unless zellij is detected
-      enabled = true,
-    },
+    -- mux = {
+    --   backend = "zellij", -- default to tmux unless zellij is detected
+    --   enabled = true,
+    -- },
   },
 })
 

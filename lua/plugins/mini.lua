@@ -193,32 +193,32 @@ local my_items = {
   {
     name = "Open File Tree ──────────────────────────────────────  ",
     action = "lua require('mini.files').open()",
-    section = "Basic Actions",
+    section = "Basic actions",
   },
   {
     name = "Find File ───────────────────────────────────────────  ",
     action = "lua Snacks.dashboard.pick('files')",
-    section = "Basic Actions",
+    section = "Basic actions",
   },
   {
     name = "New File ────────────────────────────────────────────  ",
     action = ":ene | startinsert",
-    section = "Basic Actions",
+    section = "Basic actions",
   },
   {
     name = "Recent Files ──────────────────────────────────────── 󰥔 ",
     action = "lua Snacks.picker.recent()",
-    section = "Basic Actions",
+    section = "Basic actions",
   },
   {
     name = "Session Restore ─────────────────────────────────────  ",
     action = restore_latest_session,
-    section = "Basic Actions",
+    section = "Basic actions",
   },
   {
     name = "Quit ────────────────────────────────────────────────  ",
     action = ":q",
-    section = "Basic Actions",
+    section = "Basic actions",
   },
 }
 local header = [[
@@ -232,16 +232,58 @@ local header = [[
  ╰────────────────────────────────────────────────────╯│
   ╰────────────────────────────────────────────────────╯
 ]]
+local small_header = [[
+             █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
+             █  █ █▀▀▀ █  █ █ █   █  █ █ █
+             ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀   ▀▀▀ ▀ ▀ ▀
+]]
+local function recent_files_columns(n, current_dir)
+  n = n or 5
+
+  return function()
+    local items = {}
+    local cwd = vim.fn.getcwd()
+    local width = 55
+
+    for _, f in ipairs(vim.v.oldfiles or {}) do
+      if #items >= n then
+        break
+      end
+      if vim.fn.filereadable(f) == 1 then
+        if not current_dir or f:find(cwd, 1, true) == 1 then
+          local name = vim.fn.fnamemodify(f, ":t")
+          local path = vim.fn.fnamemodify(f, ":~:.")
+
+          local padding = math.max(2, width - (#name + #path))
+          local line = name .. string.rep(" ", padding) .. path
+
+          table.insert(items, {
+            -- name = string.format("%-15s %s", name, path),
+            name = line,
+            section = "Recent files",
+            action = function()
+              vim.cmd.edit(f)
+            end,
+          })
+        end
+      end
+    end
+
+    return items
+  end
+end
 require("mini.starter").setup({
-  header = header,
+  header = small_header,
   items = {
     my_items,
+    recent_files_columns(5, true),
     starter.sections.sessions(5, true),
   },
+  footer = "",
   content_hooks = {
     starter.gen_hook.adding_bullet(),
     starter.gen_hook.aligning("center", "center"),
-    starter.gen_hook.indexing("all", { "Basic Actions" }),
+    starter.gen_hook.indexing("all", { "Basic actions", "Recent files (current directory)", "Recent files" }),
   },
 })
 

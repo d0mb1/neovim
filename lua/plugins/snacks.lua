@@ -43,6 +43,7 @@ Snacks.setup({
   zen = { enabled = false },
 
   picker = {
+    enabled = true,
     actions = {
       opencode_send = function(...)
         return require("opencode").snacks_picker_send(...)
@@ -55,7 +56,6 @@ Snacks.setup({
         },
       },
     },
-    enabled = true,
     sources = {
       files = {
         hidden = true,
@@ -178,12 +178,12 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 -- stylua: ignore start
-local   keymaps = {
+local keymaps = {
   -- Top Pickers & Explorer
   { "<leader><space>", function() Snacks.picker.smart() end, desc = "   Smart Find Files" },
   { "<leader>nN", function() Snacks.picker.notifications() end, desc = "Notification History" },
   { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-  { "<leader>nn",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+  { "<leader>nn", function() Snacks.notifier.show_history() end, desc = "Notification History" },
   { "<leader>et", function() Snacks.explorer() end, desc = "Snacks Tree" },
 
   -- find
@@ -249,11 +249,11 @@ local   keymaps = {
 
   -- terminal
   { "<leader>tT", function() Snacks.terminal() end, desc = "Terminal (cwd)", mode = "n", },
-  { "<leader>tt", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)",  mode = "n" },
-  { "<c-:>",  function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)", mode = "n" },
-  { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
-  { "<c-t>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
-  { "<c-_>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "which_key_ignore",  mode = "n" },
+  { "<leader>tt", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)", mode = "n" },
+  { "<c-:>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "Terminal (Root Dir)", mode = "n" },
+  { "<c-/>", function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
+  { "<c-t>", function() Snacks.terminal() end, desc = "Toggle Terminal", mode = {"n", "t"} },
+  { "<c-_>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "which_key_ignore", mode = "n" },
 
   -- Other
   -- { "<leader>z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
@@ -263,9 +263,9 @@ local   keymaps = {
   { "<leader>lR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
   { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
   { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-  { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
-  { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-  { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+  { "<c-_>", function() Snacks.terminal() end, desc = "which_key_ignore" },
+  { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+  { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
   {
     "<leader>N",
     desc = "   Neovim News",
@@ -292,7 +292,7 @@ vim.api.nvim_create_autocmd("User", {
   callback = function(event)
     vim.api.nvim_create_autocmd("User", {
       pattern = "MiniFilesExplorerClose",
-      callback = function ()
+      callback = function()
         print("MINIFILES CLOSED")
         Snacks.rename.on_rename_file(event.data.from, event.data.to)
       end
