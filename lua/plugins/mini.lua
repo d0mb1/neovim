@@ -233,9 +233,9 @@ local my_items = {
 --   ╰────────────────────────────────────────────────────╯
 -- ]]
 local small_header = [[
-             █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
-             █  █ █▀▀▀ █  █ █ █   █  █ █ █
-             ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀   ▀▀▀ ▀ ▀ ▀
+              █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
+              █  █ █▀▀▀ █  █ █ █   █  █ █ █
+              ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀   ▀▀▀ ▀ ▀ ▀
 ]]
 local function recent_files_columns(n, current_dir)
   n = n or 5
@@ -276,7 +276,7 @@ require("mini.starter").setup({
   header = small_header,
   items = {
     my_items,
-    recent_files_columns(5, true),
+    recent_files_columns(6, true),
     starter.sections.sessions(5, true),
   },
   footer = "",
