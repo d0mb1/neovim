@@ -190,32 +190,32 @@ end
 -- Custom menu items
 local my_items = {
   {
-    name = "Open File Tree ──────────────────────────────────────  ",
+    name = "Open File Tree ───────────────────────────────────────────── ",
     action = "lua require('mini.files').open()",
     section = "Basic actions",
   },
   {
-    name = "Find File ───────────────────────────────────────────  ",
+    name = "Find File ────────────────────────────────────────────────── ",
     action = "lua Snacks.dashboard.pick('files')",
     section = "Basic actions",
   },
   {
-    name = "New File ────────────────────────────────────────────  ",
+    name = "New File ─────────────────────────────────────────────────── ",
     action = ":ene | startinsert",
     section = "Basic actions",
   },
   {
-    name = "Recent Files ──────────────────────────────────────── 󰥔 ",
+    name = "Recent Files ─────────────────────────────────────────────── 󰥔",
     action = "lua Snacks.picker.recent()",
     section = "Basic actions",
   },
   {
-    name = "Session Restore ─────────────────────────────────────  ",
+    name = "Session Restore ──────────────────────────────────────────── ",
     action = restore_latest_session,
     section = "Basic actions",
   },
   {
-    name = "Quit ────────────────────────────────────────────────  ",
+    name = "Quit ─────────────────────────────────────────────────────── ",
     action = ":q",
     section = "Basic actions",
   },
@@ -232,9 +232,9 @@ local my_items = {
 --   ╰────────────────────────────────────────────────────╯
 -- ]]
 local small_header = [[
-              █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
-              █  █ █▀▀▀ █  █ █ █   █  █ █ █
-              ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀   ▀▀▀ ▀ ▀ ▀
+                  █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
+                  █  █ █▀▀▀ █  █ █ █   █  █ █ █
+                  ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀   ▀▀▀ ▀ ▀ ▀
 ]]
 local function recent_files_columns(n, current_dir)
   n = n or 5
@@ -242,7 +242,7 @@ local function recent_files_columns(n, current_dir)
   return function()
     local items = {}
     local cwd = vim.fn.getcwd()
-    local width = 55
+    local width = 62
 
     for _, f in ipairs(vim.v.oldfiles or {}) do
       if #items >= n then
@@ -278,7 +278,7 @@ local function recent_sessions_columns(n)
     local items = {}
     local sessions = require("mini.sessions")
     local session_dir = sessions.config.directory or vim.fn.stdpath("data") .. "/session"
-    local width = 52
+    local width = 59
 
     if vim.fn.isdirectory(session_dir) ~= 1 then
       return items

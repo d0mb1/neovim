@@ -47,14 +47,14 @@ require("plugins.lsp")
 --------------------------------------------------------------------- TREESITTER
 -- Nvim-treesitter: Syntax highlighting and parsing
 -- Nvim-treesitter-textobjects: textobjects support for treesitter
-vim.pack.add({
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    branch = "main",
-  },
-  "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-})
-require("plugins.treesitter")
+-- vim.pack.add({
+--  {
+--    src = "https://github.com/nvim-treesitter/nvim-treesitter",
+--    branch = "main",
+--  },
+--  "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+-- })
+-- require("plugins.treesitter")
 
 ----------------------------------------------------------------------- SNIPPETS
 -- LuaSnip: Snippet engine for Neovim
