@@ -144,15 +144,14 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>b", desc = "  +Buffer" },
     { mode = "n", keys = "<Leader>e", desc = "  +Explore" },
     { mode = "n", keys = "<Leader>l", desc = "  +Language" },
-    { mode = "n", keys = "<Leader>P", desc = "󰐱  +Plugin" },
-    { mode = "n", keys = "<Leader>p", desc = "  +Project" },
+    { mode = "n", keys = "<Leader>p", desc = "󰐱  +Plugin" },
     { mode = "n", keys = "<Leader>t", desc = "  +Toggle" },
     { mode = "n", keys = "<Leader>m", desc = "  +Markdown" },
     { mode = "n", keys = "<Leader>w", desc = "  +Window" },
     { mode = "n", keys = "<Leader>f", desc = "  +Find" },
     { mode = "n", keys = "<Leader>g", desc = "  +Git" },
     { mode = "n", keys = "<Leader>n", desc = "  +Notifications" },
-    { mode = "n", keys = "<Leader>s", desc = "  +Search" },
+    { mode = "n", keys = "<Leader>s", desc = "󰉓  +Session" },
     { mode = "n", keys = "<Leader>a", desc = "󰚩  +AI" },
     { mode = "n", keys = "<Leader><tab>", desc = "󰓩  +Tab" },
     { mode = "n", keys = "gl", desc = "+LSP" },
@@ -258,7 +257,6 @@ local function recent_files_columns(n, current_dir)
           local line = name .. string.rep(" ", padding) .. path
 
           table.insert(items, {
-            -- name = string.format("%-15s %s", name, path),
             name = line,
             section = "Recent files",
             action = function()
@@ -272,12 +270,66 @@ local function recent_files_columns(n, current_dir)
     return items
   end
 end
+
+local function recent_sessions_columns(n)
+  n = n or 5
+
+  return function()
+    local items = {}
+    local sessions = require("mini.sessions")
+    local session_dir = sessions.config.directory or vim.fn.stdpath("data") .. "/session"
+    local width = 52
+
+    if vim.fn.isdirectory(session_dir) ~= 1 then
+      return items
+    end
+
+    local session_files = vim.fn.glob(session_dir .. "/*", false, true)
+    if not session_files or #session_files == 0 then
+      return items
+    end
+
+    table.sort(session_files, function(a, b)
+      return vim.fn.getftime(a) > vim.fn.getftime(b)
+    end)
+
+    for _, session_path in ipairs(session_files) do
+      if #items >= n then
+        break
+      end
+      local name = vim.fn.fnamemodify(session_path, ":t:r")
+
+      local path = session_dir
+      for line in io.lines(session_path) do
+        local cd_match = line:match("^cd%s+(.+)")
+        if cd_match then
+          path = vim.fn.fnamemodify(cd_match, ":~")
+          break
+        end
+      end
+
+      local padding = math.max(2, width - (#name + #path))
+      local line = name .. string.rep(" ", padding) .. path
+
+      table.insert(items, {
+        name = line,
+        section = "Sessions",
+        action = function()
+          sessions.read(name, { force = true })
+        end,
+      })
+    end
+
+    return items
+  end
+end
 require("mini.starter").setup({
   header = small_header,
   items = {
     my_items,
     recent_files_columns(6, true),
-    starter.sections.sessions(5, true),
+    recent_sessions_columns(6),
+    -- starter.sections.sessions(5, true),
   },
   footer = "",
   content_hooks = {
@@ -304,37 +356,7 @@ vim.keymap.set("n", "<space>ta", ":lua MiniSplitjoin.toggle()<cr>", { desc = "To
 
 -- Sessions
 local session_new = 'MiniSessions.write(vim.fn.input("Session name: "))'
-vim.keymap.set("n", "<leader>pd", '<Cmd>lua MiniSessions.select("delete")<CR>', { desc = "Delete" })
-vim.keymap.set("n", "<leader>pn", "<Cmd>lua " .. session_new .. "<CR>", { desc = "New" })
-vim.keymap.set("n", "<leader>po", '<Cmd>lua MiniSessions.select("read")<CR>', { desc = "Open" })
-vim.keymap.set("n", "<leader>pw", "<Cmd>lua MiniSessions.write()<CR>", { desc = "Write current" })
-
--- Pick
--- All these use 'mini.pick'. See `:h MiniPick-overview` for an overview.
-local pick_added_hunks_buf = '<Cmd>Pick git_hunks path="%" scope="staged"<CR>'
-local pick_workspace_symbols_live = '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>'
-
-vim.keymap.set("n", "<leader>f/", '<Cmd>Pick history scope="/"<CR>', { desc = "/ history" })
-vim.keymap.set("n", "<leader>f:", '<Cmd>Pick history scope=":"<CR>', { desc = ": history" })
-vim.keymap.set("n", "<leader>fa", '<Cmd>Pick git_hunks scope="staged"<CR>', { desc = "Added hunks (all)" })
-vim.keymap.set("n", "<leader>fA", pick_added_hunks_buf, { desc = "Added hunks (buf)" })
-vim.keymap.set("n", "<leader>fb", "<Cmd>Pick buffers<CR>", { desc = "Buffers" })
-vim.keymap.set("n", "<leader>fc", "<Cmd>Pick git_commits<CR>", { desc = "Commits (all)" })
-vim.keymap.set("n", "<leader>fC", '<Cmd>Pick git_commits path="%"<CR>', { desc = "Commits (buf)" })
-vim.keymap.set("n", "<leader>fd", '<Cmd>Pick diagnostic scope="all"<CR>', { desc = "Diagnostic workspace" })
-vim.keymap.set("n", "<leader>fD", '<Cmd>Pick diagnostic scope="current"<CR>', { desc = "Diagnostic buffer" })
-vim.keymap.set("n", "<leader>ff", "<Cmd>Pick files<CR>", { desc = "Files" })
-vim.keymap.set("n", "<leader>fg", "<Cmd>Pick grep_live<CR>", { desc = "Grep live" })
-vim.keymap.set("n", "<leader>fG", '<Cmd>Pick grep pattern="<cword>"<CR>', { desc = "Grep current word" })
-vim.keymap.set("n", "<leader>fh", "<Cmd>Pick help<CR>", { desc = "Help tags" })
-vim.keymap.set("n", "<leader>fH", "<Cmd>Pick hl_groups<CR>", { desc = "Highlight groups" })
-vim.keymap.set("n", "<leader>fl", '<Cmd>Pick buf_lines scope="all"<CR>', { desc = "Lines (all)" })
-vim.keymap.set("n", "<leader>fL", '<Cmd>Pick buf_lines scope="current"<CR>', { desc = "Lines (buf)" })
-vim.keymap.set("n", "<leader>fm", "<Cmd>Pick git_hunks<CR>", { desc = "Modified hunks (all)" })
-vim.keymap.set("n", "<leader>fM", '<Cmd>Pick git_hunks path="%"<CR>', { desc = "Modified hunks (buf)" })
-vim.keymap.set("n", "<leader>fr", "<Cmd>Pick resume<CR>", { desc = "Resume" })
-vim.keymap.set("n", "<leader>fR", '<Cmd>Pick lsp scope="references"<CR>', { desc = "References (LSP)" })
-vim.keymap.set("n", "<leader>fs", pick_workspace_symbols_live, { desc = "Symbols workspace (live)" })
-vim.keymap.set("n", "<leader>fS", '<Cmd>Pick lsp scope="document_symbol"<CR>', { desc = "Symbols document" })
-vim.keymap.set("n", "<leader>fv", '<Cmd>Pick visit_paths cwd=""<CR>', { desc = "Visit paths (all)" })
-vim.keymap.set("n", "<leader>fV", "<Cmd>Pick visit_paths<CR>", { desc = "Visit paths (cwd)" })
+vim.keymap.set("n", "<leader>sd", '<Cmd>lua MiniSessions.select("delete")<CR>', { desc = "Delete" })
+vim.keymap.set("n", "<leader>sn", "<Cmd>lua " .. session_new .. "<CR>", { desc = "New" })
+vim.keymap.set("n", "<leader>so", '<Cmd>lua MiniSessions.select("read")<CR>', { desc = "Open" })
+vim.keymap.set("n", "<leader>sw", "<Cmd>lua MiniSessions.write()<CR>", { desc = "Write current" })

@@ -69,4 +69,4 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 -- AI MADE THIS
 
-vim.keymap.set("n", "gld", vim.diagnostic.open_float, { desc = "Diagnostics" })
+vim.keymap.set("n", "grD", vim.diagnostic.open_float, { desc = "Diagnostics" })

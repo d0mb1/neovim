@@ -61,7 +61,7 @@ map("n", "<c-d>", "<c-d>zz")
 map("n", "<c-u>", "<c-u>zz")
 
 -- vim.pack keymaps
-map("n", "<leader>Pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
+map("n", "<leader>pu", "<cmd>lua vim.pack.update()<CR>", { desc = "Update" })
 local function pack_clean()
   local active_plugins = {}
   local unused_plugins = {}
@@ -86,7 +86,7 @@ local function pack_clean()
     vim.pack.del(unused_plugins)
   end
 end
-vim.keymap.set("n", "<leader>Pc", pack_clean, { desc = "Clean" })
+vim.keymap.set("n", "<leader>pc", pack_clean, { desc = "Clean" })
 
 vim.keymap.set("n", "<leader>R", function()
   vim.cmd("restart")

@@ -1,12 +1,12 @@
 require("oil").setup({
   columns = {
     "icon",
-    "permissions",
-    { "size", highlight = "DiagnosticError" },
-    { "mtime", highlight = "Special" },
+    -- "permissions",
+    -- { "size", highlight = "DiagnosticError" },
+    -- { "mtime", highlight = "Special" },
     {
-      "icon",
-      default_file = ...,
+      -- "icon",
+      -- default_file = ...,
       directory = ...,
     },
   },
@@ -88,7 +88,7 @@ require("oil").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>eo", "<CMD>Oil --float<CR>", { desc = "Oil Open Parent Directory" })
+vim.keymap.set("n", "<leader>eo", "<CMD>Oil<CR>", { desc = "Oil Open Parent Directory" })
 
 -- vim.api.nvim_create_autocmd("User", {
 --   pattern = "OilEnter",
