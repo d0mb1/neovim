@@ -1,5 +1,3 @@
-local opt = vim.opt
-
 -- =============================================================================
 -- UI / VIEW
 -- =============================================================================
@@ -21,7 +19,7 @@ vim.opt.matchtime = 2 -- Duration of match highlight (in tenths of a second)
 
 vim.opt.winminwidth = 5 -- Prevent windows from becoming too narrow
 
-vim.opt.showmode = true
+vim.opt.showmode = false
 
 -- require("vim._core.ui2").enable({})
 

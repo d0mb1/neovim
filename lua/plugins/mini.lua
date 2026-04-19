@@ -2,7 +2,7 @@ require("mini.ai").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
 require("mini.trailspace").setup()
--- require("mini.statusline").setup()
+require("mini.statusline").setup()
 -- require("mini.tabline").setup()
 require("mini.pairs").setup()
 require("mini.sessions").setup()
@@ -230,6 +230,11 @@ local my_items = {
 --  │ ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ││
 --  ╰────────────────────────────────────────────────────╯│
 --   ╰────────────────────────────────────────────────────╯
+-- ]]
+-- local small_header_fill = [[
+--                   █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
+--                   █▒▒█▒█🮑🮑🮑▒█▒▒█▒█▒█▒▒▒█▒▒█▒█▒█
+--                   ▀🮎🮎▀🮎▀▀▀▀🮎▀▀▀▀🮎▀▀🮎🮎🮎▀▀▀🮎▀🮎▀🮎▀
 -- ]]
 local small_header = [[
                   █▀▀▄ █▀▀█ █▀▀█ █  █ ▀█▀ █▀█▀▄
