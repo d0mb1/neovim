@@ -1,5 +1,4 @@
-require("nvim-treesitter").setup()
-require("nvim-treesitter").install({
+local languages = {
   "bash",
   "blade",
   "c",
@@ -19,6 +18,7 @@ require("nvim-treesitter").install({
   "javascript",
   "jsdoc",
   "json",
+  "jsonc",
   "lua",
   "luadoc",
   "luap",
@@ -43,90 +43,260 @@ require("nvim-treesitter").install({
   "xml",
   "yaml",
   "zig",
-})
+}
+
+require("nvim-treesitter").install(languages)
+
 require("nvim-treesitter-textobjects").setup({
   select = {
-    enable = true,
     lookahead = true,
     selection_modes = {
-      ["@parameter.outer"] = "v", -- charwise
-      ["@function.outer"] = "V", -- linewise
-      ["@class.outer"] = "<c-v>", -- blockwise
+      ["@parameter.outer"] = "v",
+      ["@function.outer"] = "V",
+      ["@class.outer"] = "<c-v>",
     },
     include_surrounding_whitespace = false,
   },
   move = {
-    enable = true,
     set_jumps = true,
   },
 })
 
--- SELECT keymaps
-local sel = require("nvim-treesitter-textobjects.select")
-for _, map in ipairs({
-  { { "x", "o" }, "af", "@function.outer" },
-  { { "x", "o" }, "if", "@function.inner" },
-  { { "x", "o" }, "ac", "@class.outer" },
-  { { "x", "o" }, "ic", "@class.inner" },
-  { { "x", "o" }, "aa", "@parameter.outer" },
-  { { "x", "o" }, "ia", "@parameter.inner" },
-  { { "x", "o" }, "ad", "@comment.outer" },
-  { { "x", "o" }, "as", "@statement.outer" },
-}) do
-  vim.keymap.set(map[1], map[2], function()
-    sel.select_textobject(map[3], "textobjects")
-  end, { desc = "Select " .. map[3] })
+do
+  local sel = require("nvim-treesitter-textobjects.select")
+
+  for _, map in ipairs({
+    { { "x", "o" }, "af", "@function.outer" },
+    { { "x", "o" }, "if", "@function.inner" },
+    { { "x", "o" }, "ac", "@class.outer" },
+    { { "x", "o" }, "ic", "@class.inner" },
+    { { "x", "o" }, "aa", "@parameter.outer" },
+    { { "x", "o" }, "ia", "@parameter.inner" },
+    { { "x", "o" }, "ad", "@comment.outer" },
+    { { "x", "o" }, "as", "@statement.outer" },
+  }) do
+    local modes, lhs, query = map[1], map[2], map[3]
+
+    vim.keymap.set(modes, lhs, function()
+      sel.select_textobject(query, "textobjects")
+    end, {
+      desc = "Select " .. query,
+    })
+  end
 end
 
--- MOVE keymaps
-local mv = require("nvim-treesitter-textobjects.move")
-for _, map in ipairs({
-  { { "n", "x", "o" }, "]m", mv.goto_next_start, "@function.outer" },
-  { { "n", "x", "o" }, "[m", mv.goto_previous_start, "@function.outer" },
-  { { "n", "x", "o" }, "]]", mv.goto_next_start, "@class.outer" },
-  { { "n", "x", "o" }, "[[", mv.goto_previous_start, "@class.outer" },
-  { { "n", "x", "o" }, "]M", mv.goto_next_end, "@function.outer" },
-  { { "n", "x", "o" }, "[M", mv.goto_previous_end, "@function.outer" },
-  { { "n", "x", "o" }, "]o", mv.goto_next_start, { "@loop.inner", "@loop.outer" } },
-  { { "n", "x", "o" }, "[o", mv.goto_previous_start, { "@loop.inner", "@loop.outer" } },
-}) do
-  local modes, lhs, fn, query = map[1], map[2], map[3], map[4]
-  -- build a human-readable desc
-  local qstr = (type(query) == "table") and table.concat(query, ",") or query
-  vim.keymap.set(modes, lhs, function()
-    fn(query, "textobjects")
-  end, { desc = "Move to " .. qstr })
+do
+  local mv = require("nvim-treesitter-textobjects.move")
+
+  for _, map in ipairs({
+    { { "n", "x", "o" }, "]m", mv.goto_next_start, "@function.outer" },
+    { { "n", "x", "o" }, "[m", mv.goto_previous_start, "@function.outer" },
+    { { "n", "x", "o" }, "]]", mv.goto_next_start, "@class.outer" },
+    { { "n", "x", "o" }, "[[", mv.goto_previous_start, "@class.outer" },
+    { { "n", "x", "o" }, "]M", mv.goto_next_end, "@function.outer" },
+    { { "n", "x", "o" }, "[M", mv.goto_previous_end, "@function.outer" },
+    {
+      { "n", "x", "o" },
+      "]o",
+      mv.goto_next_start,
+      { "@loop.inner", "@loop.outer" },
+    },
+    {
+      { "n", "x", "o" },
+      "[o",
+      mv.goto_previous_start,
+      { "@loop.inner", "@loop.outer" },
+    },
+  }) do
+    local modes, lhs, fn, query = map[1], map[2], map[3], map[4]
+    local qstr = type(query) == "table" and table.concat(query, ", ") or query
+
+    vim.keymap.set(modes, lhs, function()
+      fn(query, "textobjects")
+    end, {
+      desc = "Move to " .. qstr,
+    })
+  end
 end
 
-vim.api.nvim_create_autocmd("PackChanged", {
-  desc = "Handle nvim-treesitter updates",
-  group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
-  callback = function(event)
-    if event.data.kind == "update" then
-      local ok = pcall(vim.cmd, "TSUpdate")
-      if ok then
-        vim.notify("TSUpdate completed successfully!", vim.log.levels.INFO)
-      else
-        vim.notify("TSUpdate command not available yet, skipping", vim.log.levels.WARN)
-      end
-    end
-  end,
-})
-
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+local group = vim.api.nvim_create_augroup("my-treesitter", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "*" },
-  callback = function()
-    local filetype = vim.bo.filetype
-    if filetype and filetype ~= "" then
-      local success = pcall(function()
-        vim.treesitter.start()
-      end)
-      if not success then
-        return
-      end
+  group = group,
+  pattern = "*",
+  callback = function(ev)
+    local ok = pcall(vim.treesitter.start, ev.buf)
+    if not ok then
+      return
+    end
+
+    vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+    local win = vim.fn.bufwinid(ev.buf)
+    if win ~= -1 then
+      vim.wo[win].foldmethod = "expr"
+      vim.wo[win].foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  group = group,
+  callback = function(ev)
+    local data = ev.data
+    if not data or not data.spec then
+      return
+    end
+
+    local name = data.spec.name or data.spec.src
+    if type(name) ~= "string" then
+      return
+    end
+
+    if not name:find("nvim%-treesitter") then
+      return
+    end
+
+    if data.kind ~= "install" and data.kind ~= "update" then
+      return
+    end
+
+    if not data.active then
+      pcall(vim.cmd.packadd, "nvim-treesitter")
+    end
+
+    pcall(vim.cmd("TSUpdate"))
+  end,
+})
+-- require("nvim-treesitter").setup()
+-- require("nvim-treesitter").install({
+--   "bash",
+--   "blade",
+--   "c",
+--   "comment",
+--   "css",
+--   "diff",
+--   "dockerfile",
+--   "fish",
+--   "gitcommit",
+--   "gitignore",
+--   "go",
+--   "gomod",
+--   "gosum",
+--   "gowork",
+--   "html",
+--   "ini",
+--   "javascript",
+--   "jsdoc",
+--   "json",
+--   "lua",
+--   "luadoc",
+--   "luap",
+--   "make",
+--   "markdown",
+--   "markdown_inline",
+--   "nginx",
+--   "nix",
+--   "proto",
+--   "python",
+--   "query",
+--   "regex",
+--   "rust",
+--   "scss",
+--   "sql",
+--   "terraform",
+--   "toml",
+--   "tsx",
+--   "typescript",
+--   "vim",
+--   "vimdoc",
+--   "xml",
+--   "yaml",
+--   "zig",
+-- })
+-- require("nvim-treesitter-textobjects").setup({
+--   select = {
+--     enable = true,
+--     lookahead = true,
+--     selection_modes = {
+--       ["@parameter.outer"] = "v", -- charwise
+--       ["@function.outer"] = "V", -- linewise
+--       ["@class.outer"] = "<c-v>", -- blockwise
+--     },
+--     include_surrounding_whitespace = false,
+--   },
+--   move = {
+--     enable = true,
+--     set_jumps = true,
+--   },
+-- })
+--
+-- -- SELECT keymaps
+-- local sel = require("nvim-treesitter-textobjects.select")
+-- for _, map in ipairs({
+--   { { "x", "o" }, "af", "@function.outer" },
+--   { { "x", "o" }, "if", "@function.inner" },
+--   { { "x", "o" }, "ac", "@class.outer" },
+--   { { "x", "o" }, "ic", "@class.inner" },
+--   { { "x", "o" }, "aa", "@parameter.outer" },
+--   { { "x", "o" }, "ia", "@parameter.inner" },
+--   { { "x", "o" }, "ad", "@comment.outer" },
+--   { { "x", "o" }, "as", "@statement.outer" },
+-- }) do
+--   vim.keymap.set(map[1], map[2], function()
+--     sel.select_textobject(map[3], "textobjects")
+--   end, { desc = "Select " .. map[3] })
+-- end
+--
+-- -- MOVE keymaps
+-- local mv = require("nvim-treesitter-textobjects.move")
+-- for _, map in ipairs({
+--   { { "n", "x", "o" }, "]m", mv.goto_next_start, "@function.outer" },
+--   { { "n", "x", "o" }, "[m", mv.goto_previous_start, "@function.outer" },
+--   { { "n", "x", "o" }, "]]", mv.goto_next_start, "@class.outer" },
+--   { { "n", "x", "o" }, "[[", mv.goto_previous_start, "@class.outer" },
+--   { { "n", "x", "o" }, "]M", mv.goto_next_end, "@function.outer" },
+--   { { "n", "x", "o" }, "[M", mv.goto_previous_end, "@function.outer" },
+--   { { "n", "x", "o" }, "]o", mv.goto_next_start, { "@loop.inner", "@loop.outer" } },
+--   { { "n", "x", "o" }, "[o", mv.goto_previous_start, { "@loop.inner", "@loop.outer" } },
+-- }) do
+--   local modes, lhs, fn, query = map[1], map[2], map[3], map[4]
+--   -- build a human-readable desc
+--   local qstr = (type(query) == "table") and table.concat(query, ",") or query
+--   vim.keymap.set(modes, lhs, function()
+--     fn(query, "textobjects")
+--   end, { desc = "Move to " .. qstr })
+-- end
+--
+-- vim.api.nvim_create_autocmd("PackChanged", {
+--   desc = "Handle nvim-treesitter updates",
+--   group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
+--   callback = function(event)
+--     if event.data.kind == "update" then
+--       local ok = pcall(vim.cmd, "TSUpdate")
+--       if ok then
+--         vim.notify("TSUpdate completed successfully!", vim.log.levels.INFO)
+--       else
+--         vim.notify("TSUpdate command not available yet, skipping", vim.log.levels.WARN)
+--       end
+--     end
+--   end,
+-- })
+--
+-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "*" },
+--   callback = function()
+--     local filetype = vim.bo.filetype
+--     if filetype and filetype ~= "" then
+--       local success = pcall(function()
+--         vim.treesitter.start()
+--       end)
+--       if not success then
+--         return
+--       end
+--     end
+--   end,
+-- })
