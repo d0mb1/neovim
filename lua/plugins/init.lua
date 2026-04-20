@@ -91,7 +91,7 @@ end)
 ----------------------------------------------------------------------- MARKDOWN
 -- Render-markdown.nvim: Markdown rendering in Neovim
 -- Markdown-preview.nvim: Markdown preview in browser
-Config.on_filetype("md", function()
+Config.on_filetype("markdown", function()
   vim.pack.add({
     "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/iamcco/markdown-preview.nvim",

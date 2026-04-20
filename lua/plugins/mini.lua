@@ -2,8 +2,6 @@ require("mini.ai").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
 require("mini.trailspace").setup()
-require("mini.statusline").setup()
-require("mini.tabline").setup()
 require("mini.pairs").setup()
 require("mini.sessions").setup()
 -- require("mini.pick").setup()
@@ -14,8 +12,18 @@ require("mini.bracketed").setup()
 -- require("mini.diff").setup()
 require("mini.extra").setup()
 -- require("mini.git").setup()
+-- require("mini.jump").setup()
 -- require("mini.jump2d").setup()
 require("mini.visits").setup()
+require("mini.statusline").setup()
+require("mini.tabline").setup()
+vim.api.nvim_set_hl(0, "MiniTablineCurrent", { fg = "#1e1e2e", bg = "#89b4fa", bold = true })
+vim.api.nvim_set_hl(0, "MiniTablineVisible", { fg = "#cdd6f4", bg = "#313244" })
+vim.api.nvim_set_hl(0, "MiniTablineHidden", { fg = "#a6adc8", bg = "NONE" })
+vim.api.nvim_set_hl(0, "MiniTablineModifiedCurrent", { fg = "#1e1e2e", bg = "#eba0ac", bold = true })
+vim.api.nvim_set_hl(0, "MiniTablineModifiedVisible", { fg = "#eba0ac", bg = "#313244" })
+vim.api.nvim_set_hl(0, "MiniTablineModifiedHidden", { fg = "#eba0ac", bg = "NONE" })
+vim.api.nvim_set_hl(0, "MiniTablineFill", { bg = "#1e1e2e" })
 require("mini.surround").setup({
   mappings = {
     add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -29,32 +37,6 @@ require("mini.surround").setup({
     suffix_next = "n", -- Suffix to search with "next" method
   },
 })
-
--- require("mini.jump").setup({
---   -- Module mappings. Use `''` (empty string) to disable one.
---   mappings = {
---     forward = "f",
---     backward = "F",
---     forward_till = "t",
---     backward_till = "T",
---     repeat_jump = ";",
---   },
---
---   -- Delay values (in ms) for different functionalities. Set any of them to
---   -- a very big number (like 10^7) to virtually disable.
---   delay = {
---     -- Delay between jump and highlighting all possible jumps
---     highlight = 250,
---
---     -- Delay between jump and automatic stop if idle (no jump is done)
---     idle_stop = 10000000,
---   },
---
---   -- Whether to disable showing non-error feedback
---   -- This also affects (purely informational) helper messages shown after
---   -- idle time if user input is required.
---   silent = false,
--- })
 
 require("mini.cmdline").setup({
   autocomplete = {

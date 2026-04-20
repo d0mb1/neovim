@@ -51,7 +51,8 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Better paste
--- remap "p" in visual mode to delete the highlighted text without overwriting your yanked/copied text, and then paste the content from the unnamed register.
+-- remap "p" in visual mode to delete the highlighted text without overwriting
+-- your yanked/copied text, and then paste the content from the unnamed register.
 map("v", "p", '"_dP', { desc = "Replace Selection" })
 
 -- Toggle wrap

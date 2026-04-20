@@ -17,6 +17,5 @@ require("mason-lspconfig").setup({
 vim.lsp.config("lua_ls", { capabilities = capabilities })
 vim.lsp.config("zls", { capabilities = capabilities })
 vim.lsp.config("vtsls", { capabilities = capabilities })
-vim.lsp.config("markdown-oxide", { capabilities = capabilities })
 
 vim.lsp.enable({ "lua_ls", "zls", "vtsls" })
