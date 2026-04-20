@@ -20,10 +20,7 @@ end)
 -- Blink-copilot: GitHub Copilot integration for blink.cmp
 Config.on_event("InsertEnter", function()
   vim.pack.add({
-    {
-      src = "https://github.com/saghen/blink.cmp",
-      version = vim.version.range("*"),
-    },
+    "https://github.com/saghen/blink.cmp",
     "https://github.com/saghen/blink.compat",
     "https://github.com/fang2hou/blink-copilot",
   })
@@ -124,12 +121,12 @@ Config.later(function()
   require("plugins.flash")
 end)
 
---------------------------------------------------------------------- BUFFERLINE
--- Bufferline.nvim: Buffer tabline plugin for Neovim
-Config.now(function()
-  vim.pack.add({ "https://github.com/akinsho/bufferline.nvim" })
-  require("plugins.bufferline")
-end)
+-- --------------------------------------------------------------------- BUFFERLINE
+-- -- Bufferline.nvim: Buffer tabline plugin for Neovim
+-- Config.now(function()
+--   vim.pack.add({ "https://github.com/akinsho/bufferline.nvim" })
+--   require("plugins.bufferline")
+-- end)
 
 ---------------------------------------------------------------------------- OIL
 -- Oil.nvim: File explorer as buffer for Neovim

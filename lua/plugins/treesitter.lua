@@ -18,7 +18,7 @@ local languages = {
   "javascript",
   "jsdoc",
   "json",
-  "jsonc",
+  -- "jsonc",
   "lua",
   "luadoc",
   "luap",

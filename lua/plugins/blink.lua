@@ -1,4 +1,7 @@
 require("blink.cmp").setup({
+  fuzzy = {
+    implementation = "prefer_rust_with_warning",
+  },
   keymap = {
     preset = "default",
     ["<C-l>"] = { "show", "show_documentation", "hide_documentation" },

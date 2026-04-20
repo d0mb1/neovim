@@ -21,7 +21,7 @@ vim.opt.winminwidth = 5 -- Prevent windows from becoming too narrow
 
 vim.opt.showmode = false
 
--- require("vim._core.ui2").enable({})
+require("vim._core.ui2").enable()
 
 -- =============================================================================
 -- INDENTATION

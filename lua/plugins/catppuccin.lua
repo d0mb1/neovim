@@ -162,7 +162,6 @@ require("catppuccin").setup({
     },
     mini = {
       enabled = true,
-      indentscope_color = "",
     },
     -- lualine = true,
   },
