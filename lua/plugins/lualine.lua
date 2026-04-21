@@ -1,5 +1,5 @@
 -- catppucin palette
-local cp_palette = require("catppuccin.palettes").get_palette("mocha")
+local palette = require("catppuccin.palettes").get_palette("mocha")
 
 -- custom component to show macro recording status
 local function macro_component()
@@ -66,7 +66,7 @@ require("lualine").setup({
         color = {
           -- fg = cp_palette.base,
           -- bg = cp_palette.peach,
-          fg = cp_palette.peach,
+          fg = palette.peach,
           gui = "bold",
         },
       },
@@ -117,8 +117,8 @@ require("lualine").setup({
         macro_component,
         color = {
           -- fg = "#212132",
-          fg = cp_palette.base,
-          bg = cp_palette.peach,
+          fg = palette.base,
+          bg = palette.peach,
           gui = "bold",
         },
       },

@@ -14,16 +14,32 @@ require("mini.extra").setup()
 -- require("mini.git").setup()
 -- require("mini.jump").setup()
 -- require("mini.jump2d").setup()
+require("mini.notify").setup()
+vim.notify = MiniNotify
 require("mini.visits").setup()
+require("mini.splitjoin").setup()
 require("mini.statusline").setup()
+
 require("mini.tabline").setup()
-vim.api.nvim_set_hl(0, "MiniTablineCurrent", { fg = "#1e1e2e", bg = "#89b4fa", bold = true })
-vim.api.nvim_set_hl(0, "MiniTablineVisible", { fg = "#cdd6f4", bg = "#313244" })
-vim.api.nvim_set_hl(0, "MiniTablineHidden", { fg = "#a6adc8", bg = "NONE" })
-vim.api.nvim_set_hl(0, "MiniTablineModifiedCurrent", { fg = "#1e1e2e", bg = "#eba0ac", bold = true })
-vim.api.nvim_set_hl(0, "MiniTablineModifiedVisible", { fg = "#eba0ac", bg = "#313244" })
-vim.api.nvim_set_hl(0, "MiniTablineModifiedHidden", { fg = "#eba0ac", bg = "NONE" })
-vim.api.nvim_set_hl(0, "MiniTablineFill", { bg = "#1e1e2e" })
+
+-- local ok, palette = pcall(function()
+--   return require("catppuccin.palettes").get_palette("mocha")
+-- end)
+if Config.palette then
+  vim.api.nvim_set_hl(0, "MiniTablineCurrent", { fg = Config.palette.base, bg = Config.palette.blue, bold = true })
+  vim.api.nvim_set_hl(0, "MiniTablineVisible", { fg = Config.palette.text, bg = Config.palette.surface0 })
+  vim.api.nvim_set_hl(0, "MiniTablineHidden", { fg = Config.palette.subtext0, bg = "NONE" })
+  vim.api.nvim_set_hl(
+    0,
+    "MiniTablineModifiedCurrent",
+    { fg = Config.palette.base, bg = Config.palette.maroon, bold = true }
+  )
+  vim.api.nvim_set_hl(0, "MiniTablineModifiedVisible", { fg = Config.palette.maroon, bg = Config.palette.subtext0 })
+  vim.api.nvim_set_hl(0, "MiniTablineModifiedHidden", { fg = Config.palette.maroon, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "MiniTablineFill", { bg = Config.palette.base })
+  -- vim.api.nvim_set_hl(0, "MiniTrailSpace", { undercurl = true, fg = Config.palette.rosewater })
+  -- vim.api.nvim_set_hl(0, "MiniStatuslineDevinfo", { fg = Config.palette.flamingo })
+end
 require("mini.surround").setup({
   mappings = {
     add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -59,8 +75,6 @@ require("mini.basics").setup({
     extra_ui = false,
   },
 })
-
-require("mini.splitjoin").setup()
 
 require("mini.files").setup({
   mappings = {

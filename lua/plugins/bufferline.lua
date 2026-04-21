@@ -1,4 +1,4 @@
-local mocha = require("catppuccin.palettes").get_palette("mocha")
+local palette = require("catppuccin.palettes").get_palette("mocha")
 
 require("bufferline").setup({
   options = {
@@ -19,7 +19,7 @@ require("bufferline").setup({
     styles = { "bold" },
     custom = {
       mocha = {
-        background = { fg = mocha.text },
+        background = { fg = palette.text },
       },
     },
   }),

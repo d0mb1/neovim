@@ -4,13 +4,17 @@
 Config.now(function()
   vim.pack.add({ "https://github.com/catppuccin/nvim" })
   require("plugins.catppuccin")
+  Config.palette = require("catppuccin.palettes").get_palette("mocha")
 end)
 
 --------------------------------------------------------------------------- MINI
 -- Mini.nvim: Collection of minimalistic Neovim plugins
 -- Includes mini.bufremove, mini.files, mini.ai, etc.
 Config.now(function()
-  vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
+  vim.pack.add({
+    "https://github.com/nvim-mini/mini.nvim",
+    "https://github.com/nvim-tree/nvim-web-devicons",
+  })
   require("plugins.mini")
 end)
 
@@ -43,13 +47,13 @@ end)
 -- Copilot.lua: GitHub Copilot integration
 Config.later(function()
   vim.pack.add({
-    "https://github.com/saghen/blink.cmp",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/williamboman/mason.nvim",
     "https://github.com/williamboman/mason-lspconfig.nvim",
     "https://github.com/zbirenbaum/copilot.lua",
   })
   require("plugins.lsp")
+  Config.capabilities = require("blink.cmp").get_lsp_capabilities()
 end)
 
 --------------------------------------------------------------------- TREESITTER

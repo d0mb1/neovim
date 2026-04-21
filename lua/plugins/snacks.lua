@@ -17,8 +17,8 @@ Snacks.setup({
   keymap = { enabled = false },
   layout = { enabled = false },
   lazygit = { enabled = false },
-  notifier = { enabled = true },
-  notify = { enabled = true },
+  notifier = { enabled = false },
+  notify = { enabled = false },
   profiler = { enabled = false },
   quickfile = { enabled = true },
   rename = { enabled = true },
@@ -60,16 +60,6 @@ Snacks.setup({
       files = {
         hidden = true,
         ignored = true,
-        win = {
-          input = {
-            keys = {
-              ["<S-h>"] = "toggle_hidden",
-              ["<S-i>"] = "toggle_ignored",
-              ["<S-f>"] = "toggle_follow",
-              ["<C-y>"] = { "yazi_copy_relative_path", mode = { "n", "i" } },
-            },
-          },
-        },
         exclude = {
           "**/.git/*",
           "**/.jj/*",
@@ -93,17 +83,9 @@ Snacks.setup({
       grep = {
         hidden = true,
         ignored = true,
-        win = {
-          input = {
-            keys = {
-              ["<S-h>"] = "toggle_hidden",
-              ["<S-i>"] = "toggle_ignored",
-              ["<S-f>"] = "toggle_follow",
-            },
-          },
-        },
         exclude = {
           "**/.git/*",
+          "**/.jj/*",
           "**/node_modules/*",
           "**/.yarn/cache/*",
           "**/.yarn/install*",
@@ -124,7 +106,6 @@ Snacks.setup({
           "**/.node-gyp/**",
         },
       },
-      grep_buffers = {},
       explorer = {
         hidden = true,
         ignored = true,
@@ -191,7 +172,7 @@ local keymaps = {
   -- { "<leader>fC", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
   { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
   { "<leader>fG", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
-  -- { "<leader>fP", function() Snacks.picker.projects() end, desc = "Projects" },
+  { "<leader>fP", function() Snacks.picker.projects() end, desc = "Projects" },
   { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
 
   -- Grep
