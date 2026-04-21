@@ -5,6 +5,8 @@ require("blink.cmp").setup({
   keymap = {
     preset = "default",
     ["<C-l>"] = { "show", "show_documentation", "hide_documentation" },
+    ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-d>"] = { "scroll_documentation_down", "fallback" },
   },
   appearance = {
     use_nvim_cmp_as_default = true,
@@ -38,10 +40,10 @@ require("blink.cmp").setup({
 
   completion = {
     documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 1,
+      auto_show = false,
     },
   },
 })
 
+Config.capabilities = require("blink.cmp").get_lsp_capabilities()
 require("blink.compat").setup({})

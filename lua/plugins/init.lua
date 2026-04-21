@@ -4,7 +4,6 @@
 Config.now(function()
   vim.pack.add({ "https://github.com/catppuccin/nvim" })
   require("plugins.catppuccin")
-  Config.palette = require("catppuccin.palettes").get_palette("mocha")
 end)
 
 --------------------------------------------------------------------------- MINI
@@ -24,7 +23,10 @@ end)
 -- Blink-copilot: GitHub Copilot integration for blink.cmp
 Config.on_event("InsertEnter", function()
   vim.pack.add({
-    "https://github.com/saghen/blink.cmp",
+    {
+      src = "https://github.com/saghen/blink.cmp",
+      version = vim.version.range("^1"),
+    },
     "https://github.com/saghen/blink.compat",
     "https://github.com/fang2hou/blink-copilot",
   })
@@ -53,7 +55,6 @@ Config.later(function()
     "https://github.com/zbirenbaum/copilot.lua",
   })
   require("plugins.lsp")
-  Config.capabilities = require("blink.cmp").get_lsp_capabilities()
 end)
 
 --------------------------------------------------------------------- TREESITTER
@@ -107,6 +108,7 @@ end)
 -- Gitsigns.nvim: Git integration for Neovim
 Config.later(function()
   vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
+  -- vim.pack.add({ "https://github.com/sindrets/diffview.nvim" })
   require("plugins.gitsigns")
 end)
 

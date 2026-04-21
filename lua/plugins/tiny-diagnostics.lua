@@ -1,4 +1,5 @@
 require("tiny-inline-diagnostic").setup({
+  preset = "powerline",
   options = {
     multilines = {
       enabled = true, -- Enable support for multiline diagnostic messages
