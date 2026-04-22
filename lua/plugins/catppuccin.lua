@@ -1,5 +1,6 @@
 require("catppuccin").setup({
   flavour = "mocha", -- latte, frappe, macchiato, mocha
+  no_italic = true,
   highlight_overrides = {
     mocha = function(mocha)
       return {

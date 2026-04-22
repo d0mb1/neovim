@@ -304,7 +304,6 @@ for _, map in ipairs(keymaps) do
 end
 
 vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local spinner = { " ⠋", " ⠙", " ⠹", " ⠸", " ⠼", " ⠴", " ⠦", " ⠧", " ⠇", " ⠏" }
     vim.notify(vim.lsp.status(), "info", {
