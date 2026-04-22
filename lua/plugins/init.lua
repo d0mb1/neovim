@@ -21,7 +21,7 @@ end)
 -- Blink.cmp: Fast, extensible completion plugin for Neovim
 -- Blink.compat: Compatibility layer for blink.cmp
 -- Blink-copilot: GitHub Copilot integration for blink.cmp
-Config.on_event("InsertEnter", function()
+Config.later(function()
   vim.pack.add({
     {
       src = "https://github.com/saghen/blink.cmp",
@@ -77,7 +77,7 @@ end)
 ----------------------------------------------------------------------- SNIPPETS
 -- LuaSnip: Snippet engine for Neovim
 -- Friendly-snippets: Collection of common snippets
-Config.on_event("InsertEnter", function()
+Config.later(function()
   vim.pack.add({
     "https://github.com/L3MON4D3/LuaSnip",
     "https://github.com/rafamadriz/friendly-snippets",
@@ -96,7 +96,7 @@ end)
 ----------------------------------------------------------------------- MARKDOWN
 -- Render-markdown.nvim: Markdown rendering in Neovim
 -- Markdown-preview.nvim: Markdown preview in browser
-Config.on_filetype("markdown", function()
+Config.later(function()
   vim.pack.add({
     "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/iamcco/markdown-preview.nvim",
@@ -143,7 +143,7 @@ end)
 
 ------------------------------------------------------------------------ LAZYDEV
 -- Lazydev.nvim: Lazy.nvim dev plugin
-Config.on_filetype("lua", function()
+Config.later(function()
   vim.pack.add({ "https://github.com/folke/lazydev.nvim" })
   require("plugins.lazydev")
 end)
@@ -156,13 +156,15 @@ Config.later(function()
 end)
 
 ----------------------------------------------------------------------- UNDOTREE
+-- undo tree plugin for whenever I need to go to whatever iteration of a file
 Config.later(function()
   vim.pack.add({ "https://github.com/jiaoshijie/undotree" })
   require("plugins.undotree")
 end)
 
 --------------------------------------------------------------- TINY DIAGNOSTICS
-Config.on_event("LspAttach", function()
+-- Nicer diagnostics with wrapping
+Config.later(function()
   vim.pack.add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
   require("plugins.tiny-diagnostics")
 end)
