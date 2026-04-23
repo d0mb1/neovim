@@ -12,7 +12,6 @@ end)
 Config.now(function()
   vim.pack.add({
     "https://github.com/nvim-mini/mini.nvim",
-    "https://github.com/nvim-tree/nvim-web-devicons",
   })
   require("plugins.mini")
 end)
