@@ -1,5 +1,5 @@
 require("nvim-treesitter").setup({})
-require("nvim-treesitter").install({
+local languages = {
   "bash",
   "blade",
   "c",
@@ -44,7 +44,8 @@ require("nvim-treesitter").install({
   "xml",
   "yaml",
   "zig",
-})
+}
+require("nvim-treesitter").install(languages)
 
 require("nvim-treesitter-textobjects").setup({
   select = {
@@ -100,35 +101,25 @@ for _, map in ipairs({
   end, { desc = "Move to " .. qstr })
 end
 
-vim.api.nvim_create_autocmd("PackChanged", {
-  desc = "Handle nvim-treesitter updates",
-  group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
-  callback = function(event)
-    if event.data.kind == "update" then
-      local ok = pcall(vim.cmd, "TSUpdate")
-      if ok then
-        vim.notify("TSUpdate completed successfully!", vim.log.levels.INFO)
-      else
-        vim.notify("TSUpdate command not available yet, skipping", vim.log.levels.WARN)
-      end
-    end
-  end,
-})
-
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "*" },
-  callback = function()
-    local filetype = vim.bo.filetype
-    if filetype and filetype ~= "" then
-      local success = pcall(function()
-        vim.treesitter.start()
-      end)
-      if not success then
-        return
-      end
-    end
-  end,
-})
+local isnt_installed = function(lang)
+  return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
+end
+local to_install = vim.tbl_filter(isnt_installed, languages)
+if #to_install > 0 then
+  require("nvim-treesitter").install(to_install)
+end
+
+-- Enable tree-sitter after opening a file for a target language
+local filetypes = {}
+for _, lang in ipairs(languages) do
+  for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+    table.insert(filetypes, ft)
+  end
+end
+local ts_start = function(ev)
+  vim.treesitter.start(ev.buf)
+end
+Config.new_autocmd("FileType", filetypes, ts_start, "Start tree-sitter")

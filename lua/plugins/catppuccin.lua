@@ -90,6 +90,8 @@ require("catppuccin").setup({
 
         Comment = { fg = mocha.overlay0 },
         ["@lsp.type.enumMember"] = { fg = mocha.text },
+        DiagnosticUnnecessary = { underline = true, sp = mocha.green },
+        DiagnosticUnderlineHint = { underline = true, sp = mocha.green },
       }
     end,
   },

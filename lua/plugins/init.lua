@@ -1,16 +1,18 @@
+local now, now_if_args, later, add = Config.now, Config.now_if_args, Config.later, vim.pack.add
+
 --------------------------------------------------------------------- CATPPUCCIN
 -- Catppuccin: Soothing pastel theme for Neovim
 -- Provides colorschemes and integrations for various plugins
-Config.now(function()
-  vim.pack.add({ "https://github.com/catppuccin/nvim" })
+now(function()
+  add({ "https://github.com/catppuccin/nvim" })
   require("plugins.catppuccin")
 end)
 
 --------------------------------------------------------------------------- MINI
 -- Mini.nvim: Collection of minimalistic Neovim plugins
 -- Includes mini.bufremove, mini.files, mini.ai, etc.
-Config.now(function()
-  vim.pack.add({
+now(function()
+  add({
     "https://github.com/nvim-mini/mini.nvim",
   })
   require("plugins.mini")
@@ -20,8 +22,8 @@ end)
 -- Blink.cmp: Fast, extensible completion plugin for Neovim
 -- Blink.compat: Compatibility layer for blink.cmp
 -- Blink-copilot: GitHub Copilot integration for blink.cmp
-Config.later(function()
-  vim.pack.add({
+now_if_args(function()
+  add({
     {
       src = "https://github.com/saghen/blink.cmp",
       version = vim.version.range("^1"),
@@ -35,8 +37,8 @@ end)
 ------------------------------------------------------------------------ CONFORM
 -- Conform.nvim: Lightweight formatting plugin
 -- Supports multiple formatters and linters
-Config.later(function()
-  vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
+later(function()
+  add({ "https://github.com/stevearc/conform.nvim" })
   require("plugins.conform")
 end)
 
@@ -46,8 +48,8 @@ end)
 -- Mason.nvim: LSP server installer
 -- Mason-lspconfig: Mason + nvim-lspconfig bridge
 -- Copilot.lua: GitHub Copilot integration
-Config.later(function()
-  vim.pack.add({
+now_if_args(function()
+  add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/williamboman/mason.nvim",
     "https://github.com/williamboman/mason-lspconfig.nvim",
@@ -59,8 +61,8 @@ end)
 --------------------------------------------------------------------- TREESITTER
 -- Nvim-treesitter: Syntax highlighting and parsing
 -- Nvim-treesitter-textobjects: textobjects support for treesitter
-Config.later(function()
-  vim.pack.add({
+now_if_args(function()
+  add({
     {
       src = "https://github.com/nvim-treesitter/nvim-treesitter",
       branch = "main",
@@ -70,14 +72,18 @@ Config.later(function()
       branch = "main",
     },
   })
+  local ts_update = function()
+    vim.cmd("TSUpdate")
+  end
+  Config.on_packchanged("nvim-treesitter", { "update" }, ts_update, ":TSUpdate")
   require("plugins.treesitter")
 end)
 
 ----------------------------------------------------------------------- SNIPPETS
 -- LuaSnip: Snippet engine for Neovim
 -- Friendly-snippets: Collection of common snippets
-Config.later(function()
-  vim.pack.add({
+later(function()
+  add({
     "https://github.com/L3MON4D3/LuaSnip",
     "https://github.com/rafamadriz/friendly-snippets",
   })
@@ -86,7 +92,7 @@ end)
 
 -- ------------------------------------------------------------------------ LUALINE
 -- -- Lualine.nvim: Status line plugin for Neovim
--- vim.pack.add({
+-- add({
 --   "https://github.com/nvim-lualine/lualine.nvim",
 --   -- "https://github.com/nvim-tree/nvim-web-devicons",
 -- })
@@ -95,8 +101,8 @@ end)
 ----------------------------------------------------------------------- MARKDOWN
 -- Render-markdown.nvim: Markdown rendering in Neovim
 -- Markdown-preview.nvim: Markdown preview in browser
-Config.later(function()
-  vim.pack.add({
+later(function()
+  add({
     "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/iamcco/markdown-preview.nvim",
   })
@@ -105,65 +111,72 @@ end)
 
 ----------------------------------------------------------------------- GITSIGNS
 -- Gitsigns.nvim: Git integration for Neovim
-Config.later(function()
-  vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
-  -- vim.pack.add({ "https://github.com/sindrets/diffview.nvim" })
+later(function()
+  add({ "https://github.com/lewis6991/gitsigns.nvim" })
+  -- add({ "https://github.com/sindrets/diffview.nvim" })
   require("plugins.gitsigns")
 end)
 
 ------------------------------------------------------------------------- SNACKS
 -- Snacks.nvim: Utility plugin for Neovim
 -- Provides winbar, statuscolumn, and other UI enhancements
-Config.later(function()
-  vim.pack.add({ "https://github.com/folke/snacks.nvim" })
+now(function()
+  add({ "https://github.com/folke/snacks.nvim" })
   require("plugins.snacks")
 end)
 
 -------------------------------------------------------------------------- FLASH
 -- Flash.nvim: Motion search plugin for Neovim
-Config.later(function()
-  vim.pack.add({ "https://github.com/folke/flash.nvim" })
+now_if_args(function()
+  add({ "https://github.com/folke/flash.nvim" })
   require("plugins.flash")
 end)
 
 -- --------------------------------------------------------------------- BUFFERLINE
 -- -- Bufferline.nvim: Buffer tabline plugin for Neovim
--- Config.now(function()
---   vim.pack.add({ "https://github.com/akinsho/bufferline.nvim" })
+-- now(function()
+--   add({ "https://github.com/akinsho/bufferline.nvim" })
 --   require("plugins.bufferline")
 -- end)
 
 ---------------------------------------------------------------------------- OIL
 -- Oil.nvim: File explorer as buffer for Neovim
-Config.later(function()
-  vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
+later(function()
+  add({ "https://github.com/stevearc/oil.nvim" })
   require("plugins.oil")
 end)
 
 ------------------------------------------------------------------------ LAZYDEV
 -- Lazydev.nvim: Lazy.nvim dev plugin
-Config.later(function()
-  vim.pack.add({ "https://github.com/folke/lazydev.nvim" })
+now_if_args(function()
+  add({ "https://github.com/folke/lazydev.nvim" })
   require("plugins.lazydev")
 end)
 
 ----------------------------------------------------------------------- SIDEKICK
 -- Sidekick.nvim: Sidebar plugin for Neovim
-Config.later(function()
-  vim.pack.add({ "https://github.com/folke/sidekick.nvim" })
+later(function()
+  add({ "https://github.com/folke/sidekick.nvim" })
   require("plugins.sidekick")
 end)
 
 ----------------------------------------------------------------------- UNDOTREE
 -- undo tree plugin for whenever I need to go to whatever iteration of a file
-Config.later(function()
-  vim.pack.add({ "https://github.com/jiaoshijie/undotree" })
+later(function()
+  add({ "https://github.com/jiaoshijie/undotree" })
   require("plugins.undotree")
 end)
 
 --------------------------------------------------------------- TINY DIAGNOSTICS
--- Nicer diagnostics with wrapping
-Config.later(function()
-  vim.pack.add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
+-- Nicer diagnostics with line wrapping
+later(function()
+  add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
   require("plugins.tiny-diagnostics")
+end)
+
+---------------------------------------------------------------------- AUTOPAIRS
+-- Better auto-pairing for brackets, quotes etc..
+now_if_args(function()
+  add({ "https://github.com/windwp/nvim-autopairs" })
+  require("plugins.autopairs")
 end)

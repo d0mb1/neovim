@@ -1,158 +1,90 @@
-local function augroup(name)
-  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
-end
+Config.new_autocmd({ "FocusGained", "TermClose", "TermLeave" }, "*", function()
+  if vim.o.buftype ~= "nofile" then
+    vim.cmd("checktime")
+  end
+end, "checktime")
 
--- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
-  callback = function()
-    if vim.o.buftype ~= "nofile" then
-      vim.cmd("checktime")
-    end
-  end,
-})
+Config.new_autocmd("VimResized", "*", function()
+  local current_tab = vim.fn.tabpagenr()
+  vim.cmd("tabdo wincmd =")
+  vim.cmd("tabnext " .. current_tab)
+end, "resize splits")
 
--- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
-  end,
-})
+Config.new_autocmd("FileType", "man", function(event)
+  vim.bo[event.buf].buflisted = false
+end, "unlist man files")
 
--- make it easier to close man-files when opened inline
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("man_unlisted"),
-  pattern = { "man" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-  end,
-})
+Config.new_autocmd("FileType", {
+  "plenarytestpopup",
+  "checkhealth",
+  "dbout",
+  "gitsigns-blame",
+  "nvim-pack",
+  "grug-far",
+  "help",
+  "nvim-undotree",
+  "lspinfo",
+  "neotest-output",
+  "neotest-output-panel",
+  "neotest-summary",
+  "notify",
+  "qf",
+  "spectre_panel",
+  "startuptime",
+  "tsplayground",
+}, function(event)
+  vim.bo[event.buf].buflisted = false
+  vim.schedule(function()
+    vim.keymap.set("n", "q", function()
+      vim.cmd("close")
+      pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+    end, {
+      buffer = event.buf,
+      silent = true,
+      desc = "quit buffer",
+    })
+  end)
+end, "close with q")
 
--- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
-  pattern = {
-    "plenarytestpopup",
-    "checkhealth",
-    "dbout",
-    "gitsigns-blame",
-    "nvim-pack",
-    "grug-far",
-    "help",
-    "nvim-undotree",
-    "lspinfo",
-    "neotest-output",
-    "neotest-output-panel",
-    "neotest-summary",
-    "notify",
-    "qf",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
-  },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.schedule(function()
-      vim.keymap.set("n", "q", function()
-        vim.cmd("close")
-        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
-      end, {
-        buffer = event.buf,
-        silent = true,
-        desc = "quit buffer",
-      })
-    end)
-  end,
-})
+Config.new_autocmd("FileType", { "text", "plaintex", "typst", "gitcommit", "markdown" }, function()
+  vim.opt_local.wrap = true
+  vim.opt_local.spell = true
+end, "wrap and spell")
 
--- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("wrap_spell"),
-  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
+-- Config.new_autocmd("BufWritePre", "*", function(event)
+--   if event.match:match("^%w%w+:[\\/][\\/]") then
+--     return
+--   end
+--   local file = vim.uv.fs_realpath(event.match) or event.match
+--   vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+-- end, "auto create dir")
 
--- -- Fix conceallevel for json files
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   group = augroup("json_conceal"),
---   pattern = { "json", "jsonc", "json5" },
---   callback = function()
---     vim.opt_local.conceallevel = 0
---   end,
--- })
+Config.new_autocmd({ "BufRead", "BufNewFile" }, { "*.env", ".env.*" }, function()
+  vim.opt_local.filetype = "sh"
+end, "env filetype")
 
--- Auto create dir when saving a file, in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  group = augroup("auto_create_dir"),
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
-      return
-    end
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
+Config.new_autocmd({ "BufRead", "BufNewFile" }, { "*.toml*" }, function()
+  vim.opt_local.filetype = "toml"
+end, "toml filetype")
 
--- Set filetype for .env and .env.* files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("env_filetype"),
-  pattern = { "*.env", ".env.*" },
-  callback = function()
-    vim.opt_local.filetype = "sh"
-  end,
-})
+Config.new_autocmd({ "BufRead", "BufNewFile" }, { "*.ejs", "*.ejs.t" }, function()
+  vim.opt_local.filetype = "embedded_template"
+end, "ejs filetype")
 
--- Set filetype for .toml files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("toml_filetype"),
-  pattern = { "*.toml*" },
-  callback = function()
-    vim.opt_local.filetype = "toml"
-  end,
-})
+Config.new_autocmd({ "BufRead", "BufNewFile" }, { "*.code-snippets" }, function()
+  vim.opt_local.filetype = "json"
+end, "code-snippets filetype")
 
--- Set filetype for .ejs files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("ejs_filetype"),
-  pattern = { "*.ejs", "*.ejs.t" },
-  callback = function()
-    vim.opt_local.filetype = "embedded_template"
-  end,
-})
+Config.new_autocmd("BufReadPost", "*", function(event)
+  local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
+  local lcount = vim.api.nvim_buf_line_count(event.buf)
+  if mark[1] > 0 and mark[1] <= lcount then
+    pcall(vim.api.nvim_win_set_cursor, 0, mark)
+  end
+end, "go to last loc")
 
--- Set filetype for .code-snippets files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("code_snippets_filetype"),
-  pattern = { "*.code-snippets" },
-  callback = function()
-    vim.opt_local.filetype = "json"
-  end,
-})
-
--- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function(event)
-    -- local exclude = { "gitcommit" } -- don't remember position in commit messages
-    local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
-    local lcount = vim.api.nvim_buf_line_count(event.buf)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-})
-
--- Open help file on left split
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.txt",
-  callback = function()
-    if vim.bo.buftype == "help" then
-      vim.cmd("wincmd L") -- Move the help window to the far right (vertical split)
-    end
-  end,
-})
+Config.new_autocmd("BufWinEnter", "*.txt", function()
+  if vim.bo.buftype == "help" then
+    vim.cmd("wincmd L")
+  end
+end, "help on left split")
