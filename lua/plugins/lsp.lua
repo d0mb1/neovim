@@ -1,7 +1,7 @@
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "zls", "vtsls" },
+  ensure_installed = { "lua_ls", "zls", "vtsls", "rust_analyzer" },
   handlers = {
     function(server)
       vim.lsp.config(server, {
@@ -15,5 +15,6 @@ require("mason-lspconfig").setup({
 vim.lsp.config("lua_ls", { capabilities = Config.capabilities })
 vim.lsp.config("zls", { capabilities = Config.capabilities })
 vim.lsp.config("vtsls", { capabilities = Config.capabilities })
+vim.lsp.config("rust_analyzer", { capabilities = Config.capabilities })
 
-vim.lsp.enable({ "lua_ls", "zls", "vtsls" })
+vim.lsp.enable({ "lua_ls", "zls", "vtsls", "rust_analyzer" })

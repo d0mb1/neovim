@@ -1,14 +1,14 @@
 require("tiny-inline-diagnostic").setup({
   preset = "simple",
   signs = {
-    diag = " ",
+    diag = "■",
   },
   blend = {
-    factor = 0.22
+    factor = 0.22,
   },
   options = {
     multilines = {
-      enabled = true,     -- Enable support for multiline diagnostic messages
+      enabled = true, -- Enable support for multiline diagnostic messages
       always_show = true, -- Always show messages on all lines of multiline diagnostics
     },
     show_all_diags_on_cursorline = true,
