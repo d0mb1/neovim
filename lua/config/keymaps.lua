@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+-- Better redo
+map("n", "U", "<C-r>", { desc = "Undo" })
+
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
